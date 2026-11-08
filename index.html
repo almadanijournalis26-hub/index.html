@@ -3,17 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AL-MANAR — Jurnalisme yang Mencerahkan</title>
+<title>AL-MANAR — Jurnalistik Ponpes Al Madani Cikalong</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=UnifrakturMaguntia&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
 
   :root{
-    --ink:#1a1a1a;
-    --paper:#f7f4ec;
-    --paper-dark:#efe9dc;
-    --rule:#c9c2b3;
-    --accent:#8b0000;
-    --muted:#5a5348;
+    --ink:#1c2b21;
+    --paper:#f6f2e6;
+    --paper-2:#efe7d2;
+    --rule:#c8bda2;
+    --green:#1f5c3a;
+    --green-deep:#143d27;
+    --gold:#b8912f;
+    --muted:#6b6350;
+    --blue:#1c3d6e;      /* baju Ojan */
+    --blue-dark:#142c50;
   }
 
   *{box-sizing:border-box;margin:0;padding:0;}
@@ -21,22 +25,21 @@
   body{
     font-family:'Libre Baskerville', Georgia, serif;
     background-color:var(--paper);
-    /* Suasana kertas koran New York Times: tekstur halus + garis samar */
+    /* Nuansa pondok: kertas hangat dengan motif geometri islami samar */
     background-image:
-      radial-gradient(circle at 20% 30%, rgba(0,0,0,0.015) 0%, transparent 60%),
-      radial-gradient(circle at 80% 70%, rgba(0,0,0,0.02) 0%, transparent 60%),
-      repeating-linear-gradient(0deg, rgba(0,0,0,0.012) 0px, rgba(0,0,0,0.012) 1px, transparent 1px, transparent 3px),
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.03 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%231f5c3a' stroke-opacity='0.05' stroke-width='1'%3E%3Cpath d='M40 4 L76 40 L40 76 L4 40 Z'/%3E%3Cpath d='M40 18 L62 40 L40 62 L18 40 Z'/%3E%3Ccircle cx='40' cy='40' r='10'/%3E%3C/g%3E%3C/svg%3E"),
+      radial-gradient(circle at 15% 20%, rgba(184,145,47,0.06) 0%, transparent 55%),
+      radial-gradient(circle at 85% 80%, rgba(31,92,58,0.05) 0%, transparent 55%);
     color:var(--ink);
     line-height:1.6;
     min-height:100vh;
   }
 
-  /* ============ HEADER NEWSPAPER ============ */
+  /* ============ HEADER ============ */
   header.masthead{
-    border-bottom:3px double var(--ink);
+    border-bottom:3px double var(--green-deep);
     padding:14px 20px 0;
-    background:rgba(247,244,236,0.92);
+    background:rgba(246,242,230,0.94);
     position:relative;
   }
   .topline{
@@ -54,29 +57,50 @@
     gap:8px;
   }
   .topline .left, .topline .right{display:flex;gap:16px;flex-wrap:wrap;}
+
   .masthead-title{
-    font-family:'UnifrakturMaguntia', 'Playfair Display', serif;
-    font-size:clamp(48px, 11vw, 108px);
+    font-family:'Playfair Display', serif;
+    font-weight:900;
+    font-size:clamp(46px, 10vw, 96px);
     text-align:center;
-    letter-spacing:4px;
+    letter-spacing:6px;
     line-height:1;
-    padding:6px 0 10px;
-    text-shadow:1px 1px 0 rgba(0,0,0,0.08);
-    animation:inkReveal 1.4s ease-out;
+    padding:8px 0 6px;
+    color:var(--green-deep);
+    text-shadow:0 1px 0 rgba(255,255,255,0.6), 0 2px 1px rgba(20,61,39,0.15);
+    animation:inkReveal 1.2s ease-out;
   }
   @keyframes inkReveal{
-    from{opacity:0; transform:translateY(-12px); filter:blur(4px);}
+    from{opacity:0; transform:translateY(-10px); filter:blur(3px);}
     to{opacity:1; transform:translateY(0); filter:blur(0);}
   }
+  /* ornamen garis di bawah judul */
+  .ornament{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    margin:2px auto 8px;max-width:420px;color:var(--gold);
+  }
+  .ornament .line{height:1px;background:var(--gold);flex:1;opacity:.6;}
+  .ornament .diamond{width:8px;height:8px;background:var(--gold);transform:rotate(45deg);}
+
   .tagline{
     text-align:center;
     font-size:12px;
-    letter-spacing:3px;
+    letter-spacing:2.5px;
     text-transform:uppercase;
-    color:var(--muted);
+    color:var(--green);
+    font-weight:700;
     padding-bottom:8px;
     border-bottom:1px solid var(--rule);
     margin-bottom:4px;
+  }
+  .tagline small{
+    display:block;
+    font-weight:400;
+    font-size:10.5px;
+    letter-spacing:1.5px;
+    color:var(--muted);
+    margin-top:3px;
+    text-transform:none;
   }
 
   /* ============ MASKOT OJAN ============ */
@@ -85,12 +109,12 @@
     justify-content:center;
     align-items:flex-end;
     gap:16px;
-    padding:18px 20px 6px;
+    padding:20px 20px 8px;
     position:relative;
   }
   .ojan{
-    width:110px;
-    height:130px;
+    width:118px;
+    height:140px;
     position:relative;
     animation:floaty 3.2s ease-in-out infinite;
     cursor:pointer;
@@ -98,58 +122,52 @@
   }
   @keyframes floaty{
     0%,100%{transform:translateY(0) rotate(-1deg);}
-    50%{transform:translateY(-9px) rotate(1.5deg);}
+    50%{transform:translateY(-8px) rotate(1.2deg);}
   }
-  .ojan svg{width:100%;height:100%;display:block;filter:drop-shadow(2px 3px 2px rgba(0,0,0,0.15));}
-
-  /* kedipan mata Ojan */
-  .eye-lid{transition:transform .12s ease;}
+  .ojan svg{width:100%;height:100%;display:block;filter:drop-shadow(2px 3px 2px rgba(0,0,0,0.18));}
+  .eye-lid{transition:transform .12s ease; transform-origin:center;}
   .ojan.blink .eye-lid{transform:scaleY(0.08);}
-  .ojan.blink .eye-lid{transform-origin:center;}
 
   .bubble{
     position:relative;
-    background:#fffef9;
-    border:1.5px solid var(--ink);
+    background:#fffdf6;
+    border:1.5px solid var(--green-deep);
     padding:10px 14px;
     font-size:12px;
     font-style:italic;
-    max-width:220px;
+    max-width:230px;
     line-height:1.45;
-    margin-bottom:34px;
-    box-shadow:3px 3px 0 rgba(0,0,0,0.08);
+    margin-bottom:38px;
+    box-shadow:3px 3px 0 rgba(20,61,39,0.12);
+    color:var(--ink);
   }
   .bubble::after{
     content:"";
     position:absolute;
-    left:-9px;
-    bottom:14px;
-    width:0;height:0;
+    left:-9px; bottom:14px;
     border:8px solid transparent;
-    border-right-color:var(--ink);
+    border-right-color:var(--green-deep);
   }
   .bubble::before{
     content:"";
     position:absolute;
-    left:-6px;
-    bottom:15px;
-    width:0;height:0;
+    left:-6px; bottom:15px;
     border:7px solid transparent;
-    border-right-color:#fffef9;
+    border-right-color:#fffdf6;
     z-index:1;
   }
 
   /* ============ NAV ============ */
   nav.section-nav{
-    border-top:1px solid var(--ink);
-    border-bottom:1px solid var(--ink);
-    background:rgba(239,233,220,0.7);
+    border-top:1px solid var(--green-deep);
+    border-bottom:1px solid var(--green-deep);
+    background:rgba(239,231,210,0.85);
     padding:9px 20px;
     display:flex;
     justify-content:center;
-    gap:26px;
+    gap:24px;
     font-size:11.5px;
-    letter-spacing:2px;
+    letter-spacing:1.8px;
     text-transform:uppercase;
     flex-wrap:wrap;
     position:sticky;
@@ -164,14 +182,43 @@
     border-bottom:1px solid transparent;
     transition:border-color .2s, color .2s;
     cursor:pointer;
+    font-weight:700;
   }
-  nav.section-nav a:hover{color:var(--accent);border-bottom-color:var(--accent);}
+  nav.section-nav a:hover,
+  nav.section-nav a.active{color:var(--green);border-bottom-color:var(--gold);}
+
+  /* ============ OWNER BAR ============ */
+  .owner-bar{
+    max-width:1180px;
+    margin:0 auto;
+    padding:12px 20px 0;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .owner-bar .status{
+    font-size:10.5px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--muted);
+    padding:6px 12px;
+    border:1px dashed var(--rule);
+    background:rgba(255,255,255,0.35);
+  }
+  .owner-bar .status.owner{
+    color:var(--green-deep);
+    border-color:var(--green);
+    background:rgba(31,92,58,0.08);
+    font-weight:700;
+  }
 
   /* ============ LAYOUT ============ */
   main{
     max-width:1180px;
     margin:0 auto;
-    padding:26px 20px 60px;
+    padding:18px 20px 60px;
   }
 
   .toolbar{
@@ -180,17 +227,19 @@
     align-items:center;
     gap:14px;
     flex-wrap:wrap;
-    border-bottom:1px solid var(--rule);
+    border-bottom:2px solid var(--green-deep);
     padding-bottom:14px;
-    margin-bottom:26px;
+    margin-bottom:24px;
   }
   .toolbar h2{
     font-family:'Playfair Display', serif;
     font-size:22px;
     letter-spacing:1px;
     text-transform:uppercase;
+    color:var(--green-deep);
   }
-  .toolbar h2 span{color:var(--accent);}
+  .toolbar h2 span{color:var(--gold);}
+  .toolbar .actions{display:flex;gap:10px;flex-wrap:wrap;}
 
   button.btn{
     font-family:'Libre Baskerville', serif;
@@ -198,37 +247,37 @@
     letter-spacing:1.5px;
     text-transform:uppercase;
     padding:10px 20px;
-    background:var(--ink);
+    background:var(--green-deep);
     color:var(--paper);
-    border:1px solid var(--ink);
+    border:1px solid var(--green-deep);
     cursor:pointer;
     transition:all .2s;
+    font-weight:700;
   }
-  button.btn:hover{background:var(--accent);border-color:var(--accent);}
-  button.btn.ghost{
-    background:transparent;color:var(--ink);
-  }
-  button.btn.ghost:hover{background:var(--ink);color:var(--paper);}
-  button.btn.danger{background:transparent;color:var(--accent);border-color:var(--accent);padding:6px 12px;font-size:10px;}
-  button.btn.danger:hover{background:var(--accent);color:#fff;}
+  button.btn:hover{background:var(--gold);border-color:var(--gold);color:var(--green-deep);}
+  button.btn.ghost{background:transparent;color:var(--green-deep);}
+  button.btn.ghost:hover{background:var(--green-deep);color:var(--paper);}
+  button.btn.danger{background:transparent;color:#8b0000;border-color:#8b0000;padding:7px 13px;font-size:10px;}
+  button.btn.danger:hover{background:#8b0000;color:#fff;}
 
   /* ============ ARTIKEL GRID ============ */
   #articles{
     display:grid;
     grid-template-columns:repeat(auto-fill, minmax(300px,1fr));
     gap:0;
-    border-top:1px solid var(--ink);
+    border-top:1px solid var(--green-deep);
   }
   article.card{
     padding:22px 22px 24px;
     border-bottom:1px solid var(--rule);
     border-right:1px solid var(--rule);
-    background:rgba(255,255,255,0.15);
+    background:rgba(255,255,255,0.2);
     transition:background .25s;
     position:relative;
     animation:fadeUp .5s ease both;
+    display:flex;flex-direction:column;
   }
-  article.card:hover{background:rgba(255,255,255,0.55);}
+  article.card:hover{background:rgba(255,255,255,0.6);}
   @keyframes fadeUp{
     from{opacity:0;transform:translateY(14px);}
     to{opacity:1;transform:translateY(0);}
@@ -239,11 +288,12 @@
     font-size:10px;
     letter-spacing:2px;
     text-transform:uppercase;
-    color:var(--accent);
-    border-bottom:1px solid var(--accent);
+    color:var(--green);
+    border-bottom:1px solid var(--green);
     padding-bottom:2px;
     margin-bottom:10px;
     font-weight:700;
+    align-self:flex-start;
   }
   article.card h3{
     font-family:'Playfair Display', serif;
@@ -255,13 +305,13 @@
   article.card h3 a{
     color:var(--ink);
     text-decoration:none;
-    background-image:linear-gradient(var(--ink),var(--ink));
+    background-image:linear-gradient(var(--green),var(--green));
     background-size:0% 1px;
     background-repeat:no-repeat;
     background-position:0 100%;
-    transition:background-size .3s;
+    transition:background-size .3s, color .2s;
   }
-  article.card h3 a:hover{background-size:100% 1px;}
+  article.card h3 a:hover{background-size:100% 1px;color:var(--green-deep);}
 
   .meta{
     font-size:11px;
@@ -272,10 +322,11 @@
   }
   .excerpt{
     font-size:14px;
-    color:#33302a;
+    color:#332f26;
     line-height:1.65;
     margin-bottom:14px;
     white-space:pre-wrap;
+    flex:1;
   }
   .card-actions{
     display:flex;
@@ -298,10 +349,11 @@
     font-size:26px;
     margin-bottom:10px;
     font-style:italic;
+    color:var(--green-deep);
   }
   .empty-state p{color:var(--muted);font-size:14px;}
 
-  /* ============ MODAL EDITOR ============ */
+  /* ============ MODAL ============ */
   .modal-overlay{
     position:fixed;inset:0;
     background:rgba(20,18,14,0.55);
@@ -315,13 +367,13 @@
   .modal-overlay.open{display:flex;}
   .modal{
     background:var(--paper);
-    border:2px solid var(--ink);
+    border:2px solid var(--green-deep);
     max-width:640px;
     width:100%;
     max-height:92vh;
     overflow-y:auto;
     padding:30px 30px 26px;
-    box-shadow:8px 8px 0 rgba(0,0,0,0.18);
+    box-shadow:8px 8px 0 rgba(20,61,39,0.22);
     animation:popIn .3s ease;
     position:relative;
   }
@@ -332,9 +384,10 @@
   .modal h3{
     font-family:'Playfair Display',serif;
     font-size:26px;
-    border-bottom:3px double var(--ink);
+    border-bottom:3px double var(--green-deep);
     padding-bottom:10px;
     margin-bottom:20px;
+    color:var(--green-deep);
   }
   .modal label{
     display:block;
@@ -351,14 +404,14 @@
     font-size:14px;
     padding:10px 12px;
     border:1px solid var(--rule);
-    background:#fffef9;
+    background:#fffdf6;
     color:var(--ink);
     margin-bottom:16px;
-    transition:border-color .2s;
+    transition:border-color .2s, box-shadow .2s;
   }
   .modal input:focus, .modal textarea:focus, .modal select:focus{
-    outline:none;border-color:var(--ink);
-    box-shadow:0 0 0 2px rgba(139,0,0,0.1);
+    outline:none;border-color:var(--green);
+    box-shadow:0 0 0 2px rgba(31,92,58,0.15);
   }
   .modal textarea{resize:vertical;min-height:110px;line-height:1.5;}
   .modal-actions{
@@ -366,9 +419,16 @@
     border-top:1px solid var(--rule);padding-top:18px;margin-top:6px;
   }
 
+  /* login modal khusus */
+  .login-note{
+    font-size:12px;color:var(--muted);font-style:italic;
+    border-left:3px solid var(--gold);padding:8px 12px;
+    background:rgba(184,145,47,0.08);margin-bottom:18px;line-height:1.55;
+  }
+
   /* ============ FOOTER ============ */
   footer{
-    border-top:3px double var(--ink);
+    border-top:3px double var(--green-deep);
     margin-top:20px;
     padding:30px 20px 40px;
     text-align:center;
@@ -376,38 +436,40 @@
     letter-spacing:1.5px;
     text-transform:uppercase;
     color:var(--muted);
+    background:rgba(20,61,39,0.04);
   }
   footer .f-title{
-    font-family:'UnifrakturMaguntia',serif;
-    font-size:34px;
-    color:var(--ink);
-    letter-spacing:3px;
-    margin-bottom:6px;
-    text-transform:none;
+    font-family:'Playfair Display',serif;
+    font-weight:900;
+    font-size:32px;
+    color:var(--green-deep);
+    letter-spacing:5px;
+    margin-bottom:4px;
+  }
+  footer .f-sub{
+    font-size:11px;letter-spacing:2px;color:var(--gold);
+    font-weight:700;margin-bottom:10px;
   }
   footer .f-links{
     display:flex;justify-content:center;gap:20px;flex-wrap:wrap;
-    margin:12px 0;
+    margin:14px 0;
   }
   footer .f-links span{cursor:pointer;transition:color .2s;}
-  footer .f-links span:hover{color:var(--accent);}
+  footer .f-links span:hover{color:var(--green);}
 
   /* toast */
   .toast{
     position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
-    background:var(--ink);color:var(--paper);
+    background:var(--green-deep);color:var(--paper);
     padding:12px 24px;font-size:12px;letter-spacing:1px;
     text-transform:uppercase;z-index:300;
     opacity:0;transition:all .35s ease;
-    border-left:4px solid var(--accent);
+    border-left:4px solid var(--gold);
   }
   .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
 
-  /* divider kolom koran pada desktop */
   @media(min-width:900px){
-    #articles{
-      grid-template-columns:repeat(3,1fr);
-    }
+    #articles{grid-template-columns:repeat(3,1fr);}
     article.card:nth-child(3n){border-right:none;}
     article.card:nth-child(3n+1){padding-left:0;}
   }
@@ -431,112 +493,146 @@
 <!-- ==================== MASTHEAD ==================== -->
 <header class="masthead">
   <div class="topline">
-    <div class="left">
-      <span id="todayDate"></span>
-    </div>
+    <div class="left"><span id="todayDate"></span></div>
     <div class="right">
       <span>Edisi Digital</span>
-      <span>Jakarta, Indonesia</span>
-      <span>Rp 0,—</span>
+      <span>Ponpes Al Madani Cikalong</span>
     </div>
   </div>
 
   <h1 class="masthead-title">AL-MANAR</h1>
-  <div class="tagline">Jurnalisme yang Mencerahkan &nbsp;•&nbsp; Sejak 2024</div>
+  <div class="ornament"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+  <div class="tagline">
+    Jurnalistik Pondok Pesantren
+    <small>Kreasi Bagian Jurnalistik Ponpes Al Madani Cikalong</small>
+  </div>
 </header>
 
 <!-- ==================== MASKOT OJAN ==================== -->
 <div class="mascot-zone">
   <div class="ojan" id="ojan" title="Ojan — Maskot AL-MANAR">
-    <svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
-      <!-- badan / jas -->
-      <path d="M30 130 Q28 95 38 84 L82 84 Q92 95 90 130 Z" fill="#2b2b2b"/>
-      <!-- kerah kemeja -->
-      <path d="M48 84 L60 100 L72 84 Z" fill="#f7f4ec" stroke="#1a1a1a" stroke-width="1.5"/>
-      <path d="M52 84 L60 93 L68 84" fill="none" stroke="#8b0000" stroke-width="2.5"/>
-      <!-- dasi -->
-      <path d="M60 93 L55 108 L60 118 L65 108 Z" fill="#8b0000"/>
-      <!-- leher -->
-      <rect x="53" y="72" width="14" height="14" rx="4" fill="#e8c9a0"/>
-      <!-- kepala -->
+    <svg viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg">
+      <!-- ====== BADAN / BAJU BIRU ====== -->
+      <path d="M28 148 Q26 100 38 86 L82 86 Q94 100 92 148 Z" fill="#1c3d6e"/>
+      <!-- kerah kemeja putih -->
+      <path d="M48 86 L60 102 L72 86 Z" fill="#f6f2e6" stroke="#142c50" stroke-width="1.5"/>
+      <!-- dasi hijau -->
+      <path d="M60 96 L55 112 L60 122 L65 112 Z" fill="#1f5c3a"/>
+      <path d="M58 96 L62 96 L60 101 Z" fill="#143d27"/>
+      <!-- kancing baju -->
+      <circle cx="60" cy="128" r="1.6" fill="#c8bda2"/>
+      <circle cx="60" cy="138" r="1.6" fill="#c8bda2"/>
+
+      <!-- ====== PAPAN NAMA (dada kiri) ====== -->
+      <!-- posisi kiri dari sudut pandang Ojan = kanan layar? Pembaca melihat kiri layar = dada kanan Ojan. Kita taruh di kiri layar (dada kanan Ojan) sesuai permintaan "dada kiri" dari sudut pandang penonton -->
+      <g transform="translate(30,112)">
+        <rect x="0" y="0" width="34" height="15" rx="2" fill="#f6f2e6" stroke="#142c50" stroke-width="1.3"/>
+        <text x="17" y="7.5" font-family="Georgia, serif" font-size="4.2" font-weight="bold" fill="#142c50" text-anchor="middle">AL-MANAR</text>
+        <text x="17" y="12.5" font-family="Georgia, serif" font-size="3.4" fill="#1f5c3a" text-anchor="middle" font-style="italic">Ojan</text>
+      </g>
+
+      <!-- ====== LEHER ====== -->
+      <rect x="53" y="74" width="14" height="14" rx="4" fill="#e8c9a0"/>
+      <!-- ====== KEPALA ====== -->
       <ellipse cx="60" cy="52" rx="30" ry="30" fill="#f0d2a8"/>
-      <!-- rambut -->
-      <path d="M30 46 Q32 20 60 18 Q88 20 90 46 Q85 34 74 34 Q64 26 54 34 Q42 32 30 46 Z" fill="#2b1d12"/>
       <!-- telinga -->
       <ellipse cx="30" cy="54" rx="5" ry="8" fill="#e8c9a0"/>
       <ellipse cx="90" cy="54" rx="5" ry="8" fill="#e8c9a0"/>
-      <!-- alis -->
-      <path d="M42 42 Q48 38 54 42" stroke="#2b1d12" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <path d="M66 42 Q72 38 78 42" stroke="#2b1d12" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <!-- mata -->
+
+      <!-- ====== PECI (songkok hitam) ====== -->
+      <path d="M30 40 Q30 14 60 12 Q90 14 90 40 L88 42 Q60 34 32 42 Z" fill="#161616"/>
+      <path d="M30 40 Q60 32 90 40 L90 43 Q60 36 30 43 Z" fill="#2a2a2a"/>
+      <!-- garis tepi peci -->
+      <path d="M31 40 Q60 33 89 40" stroke="#000" stroke-width="1" fill="none" opacity="0.6"/>
+
+      <!-- ====== RAMBUT SISI ====== -->
+      <path d="M30 46 Q31 40 34 42 Q32 48 31 52 Z" fill="#2b1d12"/>
+      <path d="M90 46 Q89 40 86 42 Q88 48 89 52 Z" fill="#2b1d12"/>
+
+      <!-- ====== ALIS ====== -->
+      <path d="M42 44 Q48 40 54 44" stroke="#2b1d12" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <path d="M66 44 Q72 40 78 44" stroke="#2b1d12" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+
+      <!-- ====== MATA ====== -->
       <g class="eye">
-        <ellipse cx="48" cy="52" rx="6.5" ry="7" fill="#fff"/>
-        <circle cx="48.5" cy="52.5" r="3.4" fill="#2b1d12"/>
-        <circle cx="49.5" cy="51" r="1.1" fill="#fff"/>
+        <ellipse cx="48" cy="54" rx="6.5" ry="7" fill="#fff"/>
+        <circle cx="48.5" cy="54.5" r="3.4" fill="#2b1d12"/>
+        <circle cx="49.5" cy="53" r="1.1" fill="#fff"/>
       </g>
       <g class="eye">
-        <ellipse cx="72" cy="52" rx="6.5" ry="7" fill="#fff"/>
-        <circle cx="72.5" cy="52.5" r="3.4" fill="#2b1d12"/>
-        <circle cx="73.5" cy="51" r="1.1" fill="#fff"/>
+        <ellipse cx="72" cy="54" rx="6.5" ry="7" fill="#fff"/>
+        <circle cx="72.5" cy="54.5" r="3.4" fill="#2b1d12"/>
+        <circle cx="73.5" cy="53" r="1.1" fill="#fff"/>
       </g>
-      <!-- kelopak mata (untuk animasi kedip) -->
+      <!-- kelopak mata untuk kedip -->
       <g class="eye-lid">
-        <rect x="40" y="45" width="16" height="14" fill="#f0d2a8"/>
-        <rect x="64" y="45" width="16" height="14" fill="#f0d2a8"/>
+        <rect x="40" y="47" width="16" height="14" fill="#f0d2a8"/>
+        <rect x="64" y="47" width="16" height="14" fill="#f0d2a8"/>
       </g>
-      <!-- KACAMATA -->
+
+      <!-- ====== KACAMATA ====== -->
       <g stroke="#1a1a1a" stroke-width="2.4" fill="none">
-        <rect x="38" y="43" width="20" height="18" rx="5" fill="rgba(255,255,255,0.25)"/>
-        <rect x="62" y="43" width="20" height="18" rx="5" fill="rgba(255,255,255,0.25)"/>
-        <line x1="58" y1="52" x2="62" y2="52"/>
-        <line x1="38" y1="50" x2="28" y2="48"/>
-        <line x1="82" y1="50" x2="92" y2="48"/>
+        <rect x="38" y="45" width="20" height="18" rx="5" fill="rgba(255,255,255,0.25)"/>
+        <rect x="62" y="45" width="20" height="18" rx="5" fill="rgba(255,255,255,0.25)"/>
+        <line x1="58" y1="54" x2="62" y2="54"/>
+        <line x1="38" y1="52" x2="28" y2="50"/>
+        <line x1="82" y1="52" x2="92" y2="50"/>
       </g>
-      <!-- pantulan kacamata -->
-      <path d="M42 46 L50 46 L44 58 Z" fill="rgba(255,255,255,0.45)"/>
-      <path d="M66 46 L74 46 L68 58 Z" fill="rgba(255,255,255,0.45)"/>
-      <!-- hidung -->
-      <path d="M58 56 Q60 62 62 56" stroke="#c9a678" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <!-- kumis tipis jurnalis -->
-      <path d="M50 67 Q60 64 70 67" stroke="#2b1d12" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-      <!-- mulut -->
-      <path d="M53 72 Q60 77 67 72" stroke="#8b5a3c" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <path d="M42 48 L50 48 L44 60 Z" fill="rgba(255,255,255,0.45)"/>
+      <path d="M66 48 L74 48 L68 60 Z" fill="rgba(255,255,255,0.45)"/>
+
+      <!-- ====== HIDUNG ====== -->
+      <path d="M58 58 Q60 64 62 58" stroke="#c9a678" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <!-- ====== KUMIS ====== -->
+      <path d="M50 69 Q60 66 70 69" stroke="#2b1d12" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <!-- ====== MULUT ====== -->
+      <path d="M53 74 Q60 79 67 74" stroke="#8b5a3c" stroke-width="2.2" fill="none" stroke-linecap="round"/>
       <!-- pipi -->
-      <circle cx="40" cy="62" r="4" fill="rgba(220,120,100,0.25)"/>
-      <circle cx="80" cy="62" r="4" fill="rgba(220,120,100,0.25)"/>
-      <!-- mic / pena di tangan -->
-      <rect x="86" y="100" width="5" height="22" rx="2" fill="#c9a678" transform="rotate(18 88 110)"/>
-      <circle cx="96" cy="99" r="4.5" fill="#1a1a1a"/>
+      <circle cx="40" cy="64" r="4" fill="rgba(220,120,100,0.22)"/>
+      <circle cx="80" cy="64" r="4" fill="rgba(220,120,100,0.22)"/>
+
+      <!-- ====== TANGAN MEMEGANG BUKU CATATAN ====== -->
+      <rect x="82" y="112" width="16" height="20" rx="1.5" fill="#f6f2e6" stroke="#142c50" stroke-width="1.2" transform="rotate(-8 90 122)"/>
+      <line x1="85" y1="118" x2="95" y2="116" stroke="#1f5c3a" stroke-width="1"/>
+      <line x1="85" y1="122" x2="95" y2="120" stroke="#1f5c3a" stroke-width="1"/>
+      <line x1="85" y1="126" x2="95" y2="124" stroke="#1f5c3a" stroke-width="1"/>
+      <!-- tangan -->
+      <circle cx="88" cy="108" r="5" fill="#f0d2a8"/>
     </svg>
   </div>
 
-  <div class="bubble" id="bubbleText">"Selamat datang di AL-MANAR! Klik saya untuk sapaan."</div>
+  <div class="bubble" id="bubbleText">"Assalamu'alaikum! Saya Ojan, siap menemani Anda membaca."</div>
 </div>
 
 <!-- ==================== NAV ==================== -->
-<nav class="section-nav">
-  <a data-filter="Semua">Semua</a>
+<nav class="section-nav" id="navFilter">
+  <a data-filter="Semua" class="active">Semua</a>
+  <a data-filter="Pondok">Pondok</a>
+  <a data-filter="Pendidikan">Pendidikan</a>
+  <a data-filter="Kegiatan">Kegiatan</a>
+  <a data-filter="Prestasi">Prestasi</a>
+  <a data-filter="Opini">Opini</a>
   <a data-filter="Nasional">Nasional</a>
-  <a data-filter="Ekonomi">Ekonomi</a>
-  <a data-filter="Politik">Politik</a>
-  <a data-filter="Budaya">Budaya</a>
-  <a data-filter="Olahraga">Olahraga</a>
-  <a data-filter="Teknologi">Teknologi</a>
 </nav>
+
+<!-- ==================== OWNER BAR ==================== -->
+<div class="owner-bar">
+  <span class="status" id="ownerStatus">👁 Mode Pengunjung — hanya bisa membaca</span>
+  <button class="btn ghost" id="loginBtn" style="padding:6px 14px;font-size:10.5px;">Login Pemilik</button>
+  <button class="btn ghost" id="logoutBtn" style="display:none;padding:6px 14px;font-size:10.5px;">Keluar</button>
+</div>
 
 <!-- ==================== MAIN ==================== -->
 <main>
   <div class="toolbar">
-    <h2>Beranda <span>Redaksi</span> <span id="countLabel" style="font-size:13px;color:var(--muted);text-transform:none;letter-spacing:0;">— 0 artikel</span></h2>
-    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+    <h2>Beranda <span>Redaksi</span> <span id="countLabel" style="font-size:13px;color:var(--muted);text-transform:none;letter-spacing:0;font-weight:400;">— 0 artikel</span></h2>
+    <div class="actions">
       <button class="btn ghost" id="exportBtn">Ekspor JSON</button>
-      <button class="btn" id="addBtn">+ Tambah Artikel</button>
+      <button class="btn" id="addBtn" style="display:none;">+ Tambah Artikel</button>
     </div>
   </div>
 
-  <section id="articles">
-    <!-- kartu artikel dirender di sini -->
-  </section>
+  <section id="articles"></section>
 </main>
 
 <!-- ==================== MODAL EDITOR ==================== -->
@@ -547,19 +643,19 @@
 
     <label for="fKategori">Kategori</label>
     <select id="fKategori">
+      <option>Pondok</option>
+      <option>Pendidikan</option>
+      <option>Kegiatan</option>
+      <option>Prestasi</option>
+      <option>Opini</option>
       <option>Nasional</option>
-      <option>Ekonomi</option>
-      <option>Politik</option>
-      <option>Budaya</option>
-      <option>Olahraga</option>
-      <option>Teknologi</option>
     </select>
 
     <label for="fJudul">Judul Artikel</label>
     <input type="text" id="fJudul" placeholder="Tulis judul yang tajam dan informatif...">
 
     <label for="fPenulis">Penulis</label>
-    <input type="text" id="fPenulis" placeholder="Nama jurnalis">
+    <input type="text" id="fPenulis" placeholder="Nama jurnalis / santri">
 
     <label for="fTanggal">Tanggal</label>
     <input type="date" id="fTanggal">
@@ -574,213 +670,44 @@
   </div>
 </div>
 
+<!-- ==================== MODAL LOGIN PEMILIK ==================== -->
+<div class="modal-overlay" id="loginOverlay">
+  <div class="modal" style="max-width:420px;">
+    <h3>Login Pemilik Server</h3>
+    <div class="login-note">
+      Hanya <strong>pemilik server / admin redaksi</strong> yang dapat membuat, mengedit, dan menghapus artikel.
+      Pengunjung lain hanya bisa membaca.
+    </div>
+    <label for="loginPass">Kata Sandi Pemilik</label>
+    <input type="password" id="loginPass" placeholder="Masukkan kata sandi...">
+    <div class="modal-actions">
+      <button class="btn ghost" id="loginCancel">Batal</button>
+      <button class="btn" id="loginSubmit">Masuk</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <!-- ==================== FOOTER ==================== -->
 <footer>
   <div class="f-title">AL-MANAR</div>
+  <div class="f-sub">Kreasi Bagian Jurnalistik Ponpes Al Madani Cikalong</div>
   <div>Jurnalisme yang Mencerahkan &nbsp;•&nbsp; Kebenaran di Atas Kepentingan</div>
   <div class="f-links">
     <span>Tentang Kami</span>
     <span>Redaksi</span>
-    <span>Pedoman Media Siber</span>
+    <span>Pedoman Media</span>
     <span>Kontak</span>
   </div>
-  <div style="font-size:10px;opacity:.7;">&copy; <span id="year"></span> AL-MANAR. Seluruh hak cipta dilindungi.</div>
+  <div style="font-size:10px;opacity:.75;">&copy; <span id="year"></span> AL-MANAR — Ponpes Al Madani Cikalong. Seluruh hak cipta dilindungi.</div>
 </footer>
 
 <script>
 /* ==========================================================
-   AL-MANAR — Sistem Artikel Manual (localStorage)
+   AL-MANAR — Sistem Artikel dengan Mode Pemilik
+   - Data disimpan di localStorage (per perangkat/browser)
+   - Hanya pemilik (setelah login) yang bisa tambah/edit/hapus
    ========================================================== */
-const STORAGE_KEY = 'almanar_articles_v1';
-let articles = [];
-let activeFilter = 'Semua';
 
-/* ---------- util ---------- */
-const $ = (s) => document.querySelector(s);
-const uid = () => 'a_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
-
-function toast(msg){
-  const t = $('#toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(t._tm);
-  t._tm = setTimeout(()=>t.classList.remove('show'), 2200);
-}
-
-function load(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    articles = raw ? JSON.parse(raw) : [];
-  }catch(e){ articles = []; }
-  if(!Array.isArray(articles)) articles = [];
-}
-function save(){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(articles));
-}
-
-function formatDate(iso){
-  if(!iso) return '—';
-  const d = new Date(iso + 'T00:00:00');
-  if(isNaN(d)) return iso;
-  return d.toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'});
-}
-
-/* ---------- render ---------- */
-function render(){
-  const wrap = $('#articles');
-  const list = activeFilter === 'Semua'
-    ? articles
-    : articles.filter(a => a.kategori === activeFilter);
-
-  // urutkan terbaru dulu
-  list.sort((a,b)=> (b.tanggal||'').localeCompare(a.tanggal||'') );
-
-  $('#countLabel').textContent = `— ${list.length} artikel`;
-
-  if(list.length === 0){
-    wrap.innerHTML = `
-      <div class="empty-state">
-        <div class="big">"Belum ada kabar yang dicatat."</div>
-        <p>Klik <strong>+ Tambah Artikel</strong> untuk menulis berita pertama Anda.<br>
-        Semua artikel tersimpan otomatis di perangkat ini.</p>
-      </div>`;
-    return;
-  }
-
-  wrap.innerHTML = list.map(a => `
-    <article class="card" data-id="${a.id}">
-      <span class="kategori">${escapeHtml(a.kategori||'Umum')}</span>
-      <h3><a href="#" data-act="view">${escapeHtml(a.judul||'(Tanpa judul)')}</a></h3>
-      <div class="meta">Oleh ${escapeHtml(a.penulis||'Anonim')} &nbsp;•&nbsp; ${formatDate(a.tanggal)}</div>
-      <div class="excerpt">${escapeHtml(a.ringkasan||'')}</div>
-      <div class="card-actions">
-        <button class="btn danger" data-act="edit">Edit</button>
-        <button class="btn danger" data-act="delete">Hapus</button>
-      </div>
-    </article>
-  `).join('');
-}
-
-function escapeHtml(str){
-  return String(str)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;').replace(/'/g,'&#039;');
-}
-
-/* ---------- modal ---------- */
-const overlay = $('#modalOverlay');
-
-function openModal(article){
-  $('#modalTitle').textContent = article ? 'Edit Artikel' : 'Tambah Artikel Baru';
-  $('#editId').value = article ? article.id : '';
-  $('#fKategori').value = article ? article.kategori : 'Nasional';
-  $('#fJudul').value = article ? article.judul : '';
-  $('#fPenulis').value = article ? article.penulis : '';
-  $('#fTanggal').value = article ? article.tanggal : new Date().toISOString().slice(0,10);
-  $('#fRingkasan').value = article ? article.ringkasan : '';
-  overlay.classList.add('open');
-  setTimeout(()=>$('#fJudul').focus(), 50);
-}
-function closeModal(){ overlay.classList.remove('open'); }
-
-$('#addBtn').addEventListener('click', ()=>openModal(null));
-$('#cancelBtn').addEventListener('click', closeModal);
-overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeModal(); });
-document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeModal(); });
-
-$('#saveBtn').addEventListener('click', ()=>{
-  const id = $('#editId').value;
-  const judul = $('#fJudul').value.trim();
-  const penulis = $('#fPenulis').value.trim();
-  const kategori = $('#fKategori').value;
-  const tanggal = $('#fTanggal').value;
-  const ringkasan = $('#fRingkasan').value.trim();
-
-  if(!judul){
-    toast('Judul tidak boleh kosong');
-    $('#fJudul').focus();
-    return;
-  }
-
-  if(id){
-    const idx = articles.findIndex(a=>a.id === id);
-    if(idx > -1){
-      articles[idx] = {...articles[idx], judul, penulis, kategori, tanggal, ringkasan};
-      toast('Artikel diperbarui');
-    }
-  }else{
-    articles.push({
-      id: uid(),
-      judul, penulis, kategori, tanggal, ringkasan,
-      dibuat: new Date().toISOString()
-    });
-    toast('Artikel ditambahkan');
-  }
-  save();
-  render();
-  closeModal();
-});
-
-/* ---------- event delegation kartu ---------- */
-$('#articles').addEventListener('click', (e)=>{
-  const btn = e.target.closest('[data-act]');
-  if(!btn) return;
-  e.preventDefault();
-  const card = e.target.closest('article.card');
-  const id = card?.dataset.id;
-  const art = articles.find(a=>a.id === id);
-  if(!art) return;
-
-  const act = btn.dataset.act;
-  if(act === 'edit') openModal(art);
-  if(act === 'view') openModal(art);
-  if(act === 'delete'){
-    if(confirm(`Hapus artikel "${art.judul}"?`)){
-      articles = articles.filter(a=>a.id !== id);
-      save(); render(); toast('Artikel dihapus');
-    }
-  }
-});
-
-/* ---------- filter nav ---------- */
-document.querySelectorAll('nav.section-nav a').forEach(a=>{
-  a.addEventListener('click', ()=>{
-    activeFilter = a.dataset.filter;
-    render();
-    window.scrollTo({top:0, behavior:'smooth'});
-  });
-});
-
-/* ---------- export ---------- */
-$('#exportBtn').addEventListener('click', ()=>{
-  if(articles.length === 0){ toast('Belum ada artikel untuk diekspor'); return; }
-  const blob = new Blob([JSON.stringify(articles, null, 2)], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `al-manar-articles-${new Date().toISOString().slice(0,10)}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
-  toast('Ekspor berhasil');
-});
-
-/* ---------- maskot Ojan ---------- */
-const ojan = $('#ojan');
-const bubble = $('#bubbleText');
-const sapaan = [
-  '"Halo, saya Ojan! Siap menemani Anda membaca."',
-  '"Berita hari ini sudah dicek faktanya, kan?"',
-  '"Jurnalisme yang baik dimulai dari rasa ingin tahu."',
-  '"Klik artikel untuk membacanya. Saya jaga di sini!"',
-  '"Ingat: verifikasi sebelum viralkan!"',
-  '"Kacamata saya tipis, tapi catatan saya tajam."'
-];
-let sapIdx = 0;
-
-ojan.addEventListener('click', ()=>{
-  ojan.classList.add('blink');
-  setTimeout(()=>ojan.classList.remove('blink'), 160);
-  bubble.textContent = sapaan[sapIdx % sapaan.length];
- 
+const STORAGE_KEY  = 'al
