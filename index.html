@@ -5,102 +5,124 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AL-MANAR — Jurnalistik Ponpes Al Madani Cikalong</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=Amiri:wght@400;700&display=swap');
 
   :root{
-    --ink:#1c2b21;
-    --paper:#f6f2e6;
-    --paper-2:#efe7d2;
-    --rule:#c8bda2;
-    --green:#1f5c3a;
-    --green-deep:#143d27;
-    --gold:#b8912f;
-    --muted:#6b6350;
-    --blue:#1c3d6e;      /* baju Ojan */
-    --blue-dark:#142c50;
+    --hijau:#0d4d3a;
+    --hijau-tua:#08352a;
+    --hijau-muda:#1a6b52;
+    --biru:#1e3a8a;
+    --biru-muda:#2d4fa8;
+    --emas:#c9a227;
+    --emas-muda:#e0be4d;
+    --kertas:#f5efe0;
+    --kertas-2:#efe6d2;
+    --tinta:#1c1a15;
+    --tinta-lembut:#4a4438;
+    --garis:#c9b89a;
+    --merah:#8b1a1a;
   }
 
   *{box-sizing:border-box;margin:0;padding:0;}
 
   body{
-    font-family:'Libre Baskerville', Georgia, serif;
-    background-color:var(--paper);
-    /* Nuansa pondok: kertas hangat dengan motif geometri islami samar */
+    font-family:'Lora', Georgia, serif;
+    background-color:var(--kertas);
     background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%231f5c3a' stroke-opacity='0.05' stroke-width='1'%3E%3Cpath d='M40 4 L76 40 L40 76 L4 40 Z'/%3E%3Cpath d='M40 18 L62 40 L40 62 L18 40 Z'/%3E%3Ccircle cx='40' cy='40' r='10'/%3E%3C/g%3E%3C/svg%3E"),
-      radial-gradient(circle at 15% 20%, rgba(184,145,47,0.06) 0%, transparent 55%),
-      radial-gradient(circle at 85% 80%, rgba(31,92,58,0.05) 0%, transparent 55%);
-    color:var(--ink);
-    line-height:1.6;
+      /* motif geometris islami halus */
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='none' stroke='%230d4d3a' stroke-width='0.5' opacity='0.06'%3E%3Cpath d='M40 0 L80 40 L40 80 L0 40 Z'/%3E%3Cpath d='M40 15 L65 40 L40 65 L15 40 Z'/%3E%3Ccircle cx='40' cy='40' r='8'/%3E%3C/g%3E%3C/svg%3E"),
+      radial-gradient(circle at 10% 10%, rgba(201,162,39,0.06) 0%, transparent 40%),
+      radial-gradient(circle at 90% 90%, rgba(13,77,58,0.06) 0%, transparent 40%);
+    color:var(--tinta);
+    line-height:1.7;
     min-height:100vh;
   }
 
-  /* ============ HEADER ============ */
+  /* ============ HEADER PONPES ============ */
   header.masthead{
-    border-bottom:3px double var(--green-deep);
-    padding:14px 20px 0;
-    background:rgba(246,242,230,0.94);
+    background:linear-gradient(180deg, var(--hijau-tua) 0%, var(--hijau) 100%);
+    color:#f5efe0;
+    border-bottom:4px solid var(--emas);
+    padding:0;
     position:relative;
   }
-  .topline{
+
+  .top-bar{
+    background:var(--hijau-tua);
+    border-bottom:1px solid rgba(201,162,39,0.35);
+    padding:8px 20px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    font-size:11px;
-    letter-spacing:1.5px;
+    font-size:11.5px;
+    letter-spacing:1.2px;
     text-transform:uppercase;
-    border-bottom:1px solid var(--rule);
-    padding-bottom:6px;
-    margin-bottom:10px;
-    color:var(--muted);
     flex-wrap:wrap;
     gap:8px;
+    color:var(--emas-muda);
   }
-  .topline .left, .topline .right{display:flex;gap:16px;flex-wrap:wrap;}
+  .top-bar .left, .top-bar .right{display:flex;gap:18px;flex-wrap:wrap;align-items:center;}
+  .top-bar .badge{
+    background:var(--emas);
+    color:var(--hijau-tua);
+    padding:2px 10px;
+    font-weight:700;
+    border-radius:2px;
+    font-size:10px;
+    letter-spacing:1.5px;
+  }
+
+  .masthead-main{
+    padding:28px 20px 24px;
+    text-align:center;
+    position:relative;
+  }
+
+  /* ornamen arabesque di kiri-kanan judul */
+  .masthead-main::before,
+  .masthead-main::after{
+    content:"❁";
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:36px;
+    color:var(--emas);
+    opacity:.5;
+  }
+  .masthead-main::before{left:8%;}
+  .masthead-main::after{right:8%;}
+
+  .bismillah{
+    font-family:'Amiri', serif;
+    font-size:22px;
+    color:var(--emas-muda);
+    margin-bottom:10px;
+    letter-spacing:1px;
+    opacity:.95;
+  }
 
   .masthead-title{
     font-family:'Playfair Display', serif;
-    font-weight:900;
-    font-size:clamp(46px, 10vw, 96px);
-    text-align:center;
-    letter-spacing:6px;
+    font-size:clamp(52px, 12vw, 104px);
+    font-weight:800;
+    letter-spacing:8px;
     line-height:1;
-    padding:8px 0 6px;
-    color:var(--green-deep);
-    text-shadow:0 1px 0 rgba(255,255,255,0.6), 0 2px 1px rgba(20,61,39,0.15);
-    animation:inkReveal 1.2s ease-out;
+    color:#ffffff;
+    text-shadow:0 3px 0 rgba(0,0,0,0.25), 0 0 40px rgba(201,162,39,0.25);
+    margin:4px 0 8px;
   }
-  @keyframes inkReveal{
-    from{opacity:0; transform:translateY(-10px); filter:blur(3px);}
-    to{opacity:1; transform:translateY(0); filter:blur(0);}
-  }
-  /* ornamen garis di bawah judul */
-  .ornament{
-    display:flex;align-items:center;justify-content:center;gap:10px;
-    margin:2px auto 8px;max-width:420px;color:var(--gold);
-  }
-  .ornament .line{height:1px;background:var(--gold);flex:1;opacity:.6;}
-  .ornament .diamond{width:8px;height:8px;background:var(--gold);transform:rotate(45deg);}
 
-  .tagline{
-    text-align:center;
-    font-size:12px;
-    letter-spacing:2.5px;
+  .sub-masthead{
+    font-size:12.5px;
+    letter-spacing:3px;
     text-transform:uppercase;
-    color:var(--green);
-    font-weight:700;
-    padding-bottom:8px;
-    border-bottom:1px solid var(--rule);
-    margin-bottom:4px;
-  }
-  .tagline small{
-    display:block;
-    font-weight:400;
-    font-size:10.5px;
-    letter-spacing:1.5px;
-    color:var(--muted);
-    margin-top:3px;
-    text-transform:none;
+    color:var(--emas-muda);
+    padding:8px 0 0;
+    border-top:1px solid rgba(201,162,39,0.4);
+    margin-top:12px;
+    display:inline-block;
+    padding-left:24px;
+    padding-right:24px;
   }
 
   /* ============ MASKOT OJAN ============ */
@@ -108,117 +130,97 @@
     display:flex;
     justify-content:center;
     align-items:flex-end;
-    gap:16px;
-    padding:20px 20px 8px;
+    gap:14px;
+    padding:24px 20px 10px;
+    background:linear-gradient(180deg, rgba(13,77,58,0.08) 0%, transparent 100%);
     position:relative;
   }
   .ojan{
-    width:118px;
-    height:140px;
+    width:130px;
+    height:160px;
     position:relative;
-    animation:floaty 3.2s ease-in-out infinite;
+    animation:floaty 3.4s ease-in-out infinite;
     cursor:pointer;
     flex-shrink:0;
   }
   @keyframes floaty{
     0%,100%{transform:translateY(0) rotate(-1deg);}
-    50%{transform:translateY(-8px) rotate(1.2deg);}
+    50%{transform:translateY(-8px) rotate(1.5deg);}
   }
-  .ojan svg{width:100%;height:100%;display:block;filter:drop-shadow(2px 3px 2px rgba(0,0,0,0.18));}
-  .eye-lid{transition:transform .12s ease; transform-origin:center;}
-  .ojan.blink .eye-lid{transform:scaleY(0.08);}
+  .ojan svg{width:100%;height:100%;display:block;filter:drop-shadow(2px 4px 3px rgba(0,0,0,0.2));}
+
+  .eye-lid{transition:transform .12s ease;transform-origin:center;}
+  .ojan.blink .eye-lid{transform:scaleY(0.05);}
 
   .bubble{
     position:relative;
-    background:#fffdf6;
-    border:1.5px solid var(--green-deep);
-    padding:10px 14px;
-    font-size:12px;
+    background:#fffdf5;
+    border:2px solid var(--hijau);
+    padding:12px 16px;
+    font-size:13px;
     font-style:italic;
-    max-width:230px;
-    line-height:1.45;
-    margin-bottom:38px;
-    box-shadow:3px 3px 0 rgba(20,61,39,0.12);
-    color:var(--ink);
+    max-width:260px;
+    line-height:1.55;
+    margin-bottom:44px;
+    box-shadow:3px 3px 0 var(--emas);
+    color:var(--tinta);
+    border-radius:4px;
   }
   .bubble::after{
     content:"";
     position:absolute;
-    left:-9px; bottom:14px;
-    border:8px solid transparent;
-    border-right-color:var(--green-deep);
+    left:-11px;
+    bottom:16px;
+    width:0;height:0;
+    border:9px solid transparent;
+    border-right-color:var(--hijau);
   }
   .bubble::before{
     content:"";
     position:absolute;
-    left:-6px; bottom:15px;
-    border:7px solid transparent;
-    border-right-color:#fffdf6;
+    left:-7px;
+    bottom:17px;
+    width:0;height:0;
+    border:8px solid transparent;
+    border-right-color:#fffdf5;
     z-index:1;
   }
 
   /* ============ NAV ============ */
   nav.section-nav{
-    border-top:1px solid var(--green-deep);
-    border-bottom:1px solid var(--green-deep);
-    background:rgba(239,231,210,0.85);
-    padding:9px 20px;
+    background:var(--hijau);
+    border-top:2px solid var(--emas);
+    border-bottom:2px solid var(--emas);
+    padding:11px 20px;
     display:flex;
     justify-content:center;
     gap:24px;
-    font-size:11.5px;
+    font-size:12px;
     letter-spacing:1.8px;
     text-transform:uppercase;
     flex-wrap:wrap;
     position:sticky;
     top:0;
     z-index:50;
-    backdrop-filter:blur(2px);
+    box-shadow:0 3px 10px rgba(0,0,0,0.15);
   }
   nav.section-nav a{
-    color:var(--ink);
+    color:#f5efe0;
     text-decoration:none;
-    padding-bottom:2px;
-    border-bottom:1px solid transparent;
-    transition:border-color .2s, color .2s;
+    padding:4px 2px;
+    border-bottom:2px solid transparent;
+    transition:all .2s;
     cursor:pointer;
-    font-weight:700;
+    font-weight:600;
   }
   nav.section-nav a:hover,
-  nav.section-nav a.active{color:var(--green);border-bottom-color:var(--gold);}
-
-  /* ============ OWNER BAR ============ */
-  .owner-bar{
-    max-width:1180px;
-    margin:0 auto;
-    padding:12px 20px 0;
-    display:flex;
-    justify-content:flex-end;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-  }
-  .owner-bar .status{
-    font-size:10.5px;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    color:var(--muted);
-    padding:6px 12px;
-    border:1px dashed var(--rule);
-    background:rgba(255,255,255,0.35);
-  }
-  .owner-bar .status.owner{
-    color:var(--green-deep);
-    border-color:var(--green);
-    background:rgba(31,92,58,0.08);
-    font-weight:700;
-  }
+  nav.section-nav a.active{color:var(--emas-muda);border-bottom-color:var(--emas);}
 
   /* ============ LAYOUT ============ */
   main{
     max-width:1180px;
     margin:0 auto;
-    padding:18px 20px 60px;
+    padding:30px 20px 60px;
   }
 
   .toolbar{
@@ -227,57 +229,76 @@
     align-items:center;
     gap:14px;
     flex-wrap:wrap;
-    border-bottom:2px solid var(--green-deep);
-    padding-bottom:14px;
-    margin-bottom:24px;
+    border-bottom:2px solid var(--hijau);
+    padding-bottom:16px;
+    margin-bottom:28px;
   }
   .toolbar h2{
     font-family:'Playfair Display', serif;
-    font-size:22px;
-    letter-spacing:1px;
-    text-transform:uppercase;
-    color:var(--green-deep);
+    font-size:26px;
+    color:var(--hijau-tua);
+    letter-spacing:0.5px;
   }
-  .toolbar h2 span{color:var(--gold);}
-  .toolbar .actions{display:flex;gap:10px;flex-wrap:wrap;}
+  .toolbar h2 span{color:var(--emas);}
+  #countLabel{
+    font-family:'Lora', serif;
+    font-size:13px;
+    color:var(--tinta-lembut);
+    font-style:italic;
+    font-weight:400;
+    margin-left:8px;
+  }
 
   button.btn{
-    font-family:'Libre Baskerville', serif;
+    font-family:'Lora', serif;
     font-size:12px;
-    letter-spacing:1.5px;
+    letter-spacing:1.2px;
     text-transform:uppercase;
-    padding:10px 20px;
-    background:var(--green-deep);
-    color:var(--paper);
-    border:1px solid var(--green-deep);
+    font-weight:700;
+    padding:11px 22px;
+    background:var(--hijau);
+    color:#f5efe0;
+    border:2px solid var(--hijau);
     cursor:pointer;
     transition:all .2s;
-    font-weight:700;
+    border-radius:3px;
   }
-  button.btn:hover{background:var(--gold);border-color:var(--gold);color:var(--green-deep);}
-  button.btn.ghost{background:transparent;color:var(--green-deep);}
-  button.btn.ghost:hover{background:var(--green-deep);color:var(--paper);}
-  button.btn.danger{background:transparent;color:#8b0000;border-color:#8b0000;padding:7px 13px;font-size:10px;}
-  button.btn.danger:hover{background:#8b0000;color:#fff;}
+  button.btn:hover{background:var(--hijau-tua);border-color:var(--emas);color:var(--emas-muda);}
+  button.btn.ghost{background:transparent;color:var(--hijau);}
+  button.btn.ghost:hover{background:var(--hijau);color:#f5efe0;}
+  button.btn.emas{background:var(--emas);border-color:var(--emas);color:var(--hijau-tua);}
+  button.btn.emas:hover{background:var(--emas-muda);border-color:var(--emas-muda);}
+  button.btn.danger{
+    background:transparent;color:var(--merah);border-color:var(--merah);
+    padding:7px 14px;font-size:10.5px;
+  }
+  button.btn.danger:hover{background:var(--merah);color:#fff;}
 
   /* ============ ARTIKEL GRID ============ */
   #articles{
     display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(300px,1fr));
-    gap:0;
-    border-top:1px solid var(--green-deep);
+    grid-template-columns:repeat(auto-fill, minmax(310px,1fr));
+    gap:24px;
   }
+
   article.card{
-    padding:22px 22px 24px;
-    border-bottom:1px solid var(--rule);
-    border-right:1px solid var(--rule);
-    background:rgba(255,255,255,0.2);
-    transition:background .25s;
+    padding:24px 24px 20px;
+    background:#fffdf5;
+    border:1px solid var(--garis);
+    border-top:4px solid var(--hijau);
+    border-radius:4px;
+    box-shadow:0 2px 8px rgba(13,77,58,0.06);
+    transition:all .25s;
     position:relative;
+    display:flex;
+    flex-direction:column;
     animation:fadeUp .5s ease both;
-    display:flex;flex-direction:column;
   }
-  article.card:hover{background:rgba(255,255,255,0.6);}
+  article.card:hover{
+    box-shadow:0 8px 22px rgba(13,77,58,0.15);
+    transform:translateY(-3px);
+    border-top-color:var(--emas);
+  }
   @keyframes fadeUp{
     from{opacity:0;transform:translateY(14px);}
     to{opacity:1;transform:translateY(0);}
@@ -285,55 +306,61 @@
 
   .kategori{
     display:inline-block;
-    font-size:10px;
+    font-size:10.5px;
     letter-spacing:2px;
     text-transform:uppercase;
-    color:var(--green);
-    border-bottom:1px solid var(--green);
-    padding-bottom:2px;
-    margin-bottom:10px;
+    color:#fff;
+    background:var(--hijau);
+    padding:4px 12px;
+    margin-bottom:12px;
     font-weight:700;
     align-self:flex-start;
+    border-radius:2px;
   }
   article.card h3{
     font-family:'Playfair Display', serif;
-    font-size:22px;
-    line-height:1.25;
-    margin-bottom:10px;
+    font-size:23px;
+    line-height:1.3;
+    margin-bottom:12px;
     font-weight:700;
+    color:var(--hijau-tua);
   }
   article.card h3 a{
-    color:var(--ink);
+    color:inherit;
     text-decoration:none;
-    background-image:linear-gradient(var(--green),var(--green));
-    background-size:0% 1px;
+    background-image:linear-gradient(var(--emas),var(--emas));
+    background-size:0% 2px;
     background-repeat:no-repeat;
     background-position:0 100%;
-    transition:background-size .3s, color .2s;
+    transition:background-size .3s;
+    padding-bottom:2px;
   }
-  article.card h3 a:hover{background-size:100% 1px;color:var(--green-deep);}
+  article.card h3 a:hover{background-size:100% 2px;}
 
   .meta{
-    font-size:11px;
-    letter-spacing:1px;
+    font-size:11.5px;
+    letter-spacing:0.8px;
     text-transform:uppercase;
-    color:var(--muted);
+    color:var(--tinta-lembut);
     margin-bottom:12px;
+    padding-bottom:10px;
+    border-bottom:1px dashed var(--garis);
   }
+  .meta strong{color:var(--hijau);font-weight:700;}
   .excerpt{
-    font-size:14px;
-    color:#332f26;
-    line-height:1.65;
-    margin-bottom:14px;
+    font-size:14.5px;
+    color:#3a352a;
+    line-height:1.7;
+    margin-bottom:16px;
     white-space:pre-wrap;
-    flex:1;
+    flex-grow:1;
   }
   .card-actions{
     display:flex;
     gap:8px;
     justify-content:flex-end;
-    border-top:1px dotted var(--rule);
-    padding-top:10px;
+    border-top:1px solid var(--garis);
+    padding-top:12px;
     margin-top:auto;
   }
 
@@ -342,22 +369,24 @@
     grid-column:1/-1;
     text-align:center;
     padding:70px 20px;
-    border-bottom:1px solid var(--rule);
+    background:#fffdf5;
+    border:2px dashed var(--garis);
+    border-radius:6px;
   }
   .empty-state .big{
     font-family:'Playfair Display',serif;
-    font-size:26px;
-    margin-bottom:10px;
+    font-size:28px;
+    margin-bottom:12px;
     font-style:italic;
-    color:var(--green-deep);
+    color:var(--hijau-tua);
   }
-  .empty-state p{color:var(--muted);font-size:14px;}
+  .empty-state p{color:var(--tinta-lembut);font-size:14.5px;line-height:1.8;}
 
-  /* ============ MODAL ============ */
+  /* ============ MODAL EDITOR ============ */
   .modal-overlay{
     position:fixed;inset:0;
-    background:rgba(20,18,14,0.55);
-    backdrop-filter:blur(3px);
+    background:rgba(8,53,42,0.7);
+    backdrop-filter:blur(4px);
     display:none;
     align-items:center;
     justify-content:center;
@@ -366,16 +395,17 @@
   }
   .modal-overlay.open{display:flex;}
   .modal{
-    background:var(--paper);
-    border:2px solid var(--green-deep);
+    background:var(--kertas);
+    border:2px solid var(--hijau);
+    border-top:6px solid var(--emas);
     max-width:640px;
     width:100%;
     max-height:92vh;
     overflow-y:auto;
-    padding:30px 30px 26px;
-    box-shadow:8px 8px 0 rgba(20,61,39,0.22);
+    padding:32px 32px 26px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.35);
     animation:popIn .3s ease;
-    position:relative;
+    border-radius:6px;
   }
   @keyframes popIn{
     from{opacity:0;transform:scale(.95) translateY(10px);}
@@ -384,107 +414,132 @@
   .modal h3{
     font-family:'Playfair Display',serif;
     font-size:26px;
-    border-bottom:3px double var(--green-deep);
-    padding-bottom:10px;
-    margin-bottom:20px;
-    color:var(--green-deep);
+    color:var(--hijau-tua);
+    border-bottom:2px solid var(--hijau);
+    padding-bottom:12px;
+    margin-bottom:22px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .modal h3::before{
+    content:"✦";
+    color:var(--emas);
+    font-size:22px;
   }
   .modal label{
     display:block;
-    font-size:11px;
+    font-size:11.5px;
     letter-spacing:1.5px;
     text-transform:uppercase;
-    margin-bottom:6px;
-    color:var(--muted);
+    margin-bottom:7px;
+    color:var(--hijau);
     font-weight:700;
   }
   .modal input, .modal textarea, .modal select{
     width:100%;
-    font-family:'Libre Baskerville',serif;
-    font-size:14px;
-    padding:10px 12px;
-    border:1px solid var(--rule);
-    background:#fffdf6;
-    color:var(--ink);
+    font-family:'Lora',serif;
+    font-size:14.5px;
+    padding:11px 14px;
+    border:1.5px solid var(--garis);
+    background:#fffdf5;
+    color:var(--tinta);
     margin-bottom:16px;
-    transition:border-color .2s, box-shadow .2s;
+    transition:all .2s;
+    border-radius:3px;
   }
   .modal input:focus, .modal textarea:focus, .modal select:focus{
-    outline:none;border-color:var(--green);
-    box-shadow:0 0 0 2px rgba(31,92,58,0.15);
+    outline:none;
+    border-color:var(--hijau);
+    box-shadow:0 0 0 3px rgba(13,77,58,0.12);
   }
-  .modal textarea{resize:vertical;min-height:110px;line-height:1.5;}
+  .modal textarea{resize:vertical;min-height:120px;line-height:1.6;}
   .modal-actions{
     display:flex;gap:10px;justify-content:flex-end;
-    border-top:1px solid var(--rule);padding-top:18px;margin-top:6px;
+    border-top:1px solid var(--garis);padding-top:20px;margin-top:8px;
   }
-
-  /* login modal khusus */
-  .login-note{
-    font-size:12px;color:var(--muted);font-style:italic;
-    border-left:3px solid var(--gold);padding:8px 12px;
-    background:rgba(184,145,47,0.08);margin-bottom:18px;line-height:1.55;
+  .modal-note{
+    font-size:12px;
+    color:var(--tinta-lembut);
+    font-style:italic;
+    background:rgba(201,162,39,0.12);
+    padding:10px 14px;
+    border-left:3px solid var(--emas);
+    margin-bottom:20px;
+    border-radius:3px;
   }
 
   /* ============ FOOTER ============ */
   footer{
-    border-top:3px double var(--green-deep);
-    margin-top:20px;
-    padding:30px 20px 40px;
+    background:linear-gradient(180deg, var(--hijau) 0%, var(--hijau-tua) 100%);
+    color:#e8dfc8;
+    border-top:4px solid var(--emas);
+    margin-top:40px;
+    padding:38px 20px 30px;
     text-align:center;
-    font-size:11px;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-    color:var(--muted);
-    background:rgba(20,61,39,0.04);
+    font-size:12.5px;
+    letter-spacing:0.8px;
   }
   footer .f-title{
     font-family:'Playfair Display',serif;
-    font-weight:900;
-    font-size:32px;
-    color:var(--green-deep);
-    letter-spacing:5px;
-    margin-bottom:4px;
+    font-size:40px;
+    color:#fff;
+    letter-spacing:6px;
+    margin-bottom:8px;
+    font-weight:800;
   }
   footer .f-sub{
-    font-size:11px;letter-spacing:2px;color:var(--gold);
-    font-weight:700;margin-bottom:10px;
+    font-family:'Amiri', serif;
+    font-size:18px;
+    color:var(--emas-muda);
+    margin-bottom:16px;
   }
   footer .f-links{
-    display:flex;justify-content:center;gap:20px;flex-wrap:wrap;
-    margin:14px 0;
+    display:flex;justify-content:center;gap:22px;flex-wrap:wrap;
+    margin:16px 0;
+    font-size:11.5px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
   }
   footer .f-links span{cursor:pointer;transition:color .2s;}
-  footer .f-links span:hover{color:var(--green);}
+  footer .f-links span:hover{color:var(--emas-muda);}
+  footer .f-ornament{
+    color:var(--emas);
+    font-size:16px;
+    letter-spacing:8px;
+    margin:10px 0;
+    opacity:.7;
+  }
+  footer .copy{
+    font-size:10.5px;
+    opacity:.75;
+    margin-top:8px;
+    letter-spacing:1px;
+  }
 
   /* toast */
   .toast{
     position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
-    background:var(--green-deep);color:var(--paper);
-    padding:12px 24px;font-size:12px;letter-spacing:1px;
+    background:var(--hijau-tua);color:#f5efe0;
+    padding:13px 26px;font-size:12px;letter-spacing:1px;
     text-transform:uppercase;z-index:300;
     opacity:0;transition:all .35s ease;
-    border-left:4px solid var(--gold);
+    border-left:4px solid var(--emas);
+    box-shadow:0 6px 20px rgba(0,0,0,0.3);
+    border-radius:3px;
   }
   .toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+  .toast.error{background:var(--merah);border-left-color:#fff;}
 
-  @media(min-width:900px){
-    #articles{grid-template-columns:repeat(3,1fr);}
-    article.card:nth-child(3n){border-right:none;}
-    article.card:nth-child(3n+1){padding-left:0;}
-  }
-  @media(max-width:899px) and (min-width:600px){
-    #articles{grid-template-columns:repeat(2,1fr);}
-    article.card:nth-child(2n){border-right:none;}
-    article.card:nth-child(2n+1){padding-left:0;}
-  }
   @media(max-width:599px){
-    #articles{grid-template-columns:1fr;}
-    article.card{border-right:none;padding-left:0;padding-right:0;}
     .mascot-zone{flex-direction:column;align-items:center;}
     .bubble{margin-bottom:0;margin-top:6px;}
-    .bubble::after{left:50%;bottom:auto;top:-9px;transform:translateX(-50%) rotate(90deg);}
-    .bubble::before{left:50%;bottom:auto;top:-6px;transform:translateX(-50%) rotate(90deg);}
+    .bubble::after{left:50%;bottom:auto;top:-11px;transform:translateX(-50%) rotate(90deg);}
+    .bubble::before{left:50%;bottom:auto;top:-7px;transform:translateX(-50%) rotate(90deg);}
+    .masthead-main::before,.masthead-main::after{display:none;}
+    .masthead-title{letter-spacing:4px;}
+    #articles{grid-template-columns:1fr;}
+    .toolbar h2{font-size:22px;}
   }
 </style>
 </head>
@@ -492,148 +547,147 @@
 
 <!-- ==================== MASTHEAD ==================== -->
 <header class="masthead">
-  <div class="topline">
-    <div class="left"><span id="todayDate"></span></div>
+  <div class="top-bar">
+    <div class="left">
+      <span class="badge">Ponpes Al Madani Cikalong</span>
+      <span id="todayDate"></span>
+    </div>
     <div class="right">
-      <span>Edisi Digital</span>
-      <span>Ponpes Al Madani Cikalong</span>
+      <span>Divisi Jurnalistik</span>
+      <span>Edisi Santri</span>
     </div>
   </div>
 
-  <h1 class="masthead-title">AL-MANAR</h1>
-  <div class="ornament"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
-  <div class="tagline">
-    Jurnalistik Pondok Pesantren
-    <small>Kreasi Bagian Jurnalistik Ponpes Al Madani Cikalong</small>
+  <div class="masthead-main">
+    <div class="bismillah">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</div>
+    <h1 class="masthead-title">AL-MANAR</h1>
+    <div class="sub-masthead">Menara Ilmu &nbsp;·&nbsp; Jurnalistik Santri &nbsp;·&nbsp; Al Madani Cikalong</div>
   </div>
 </header>
 
 <!-- ==================== MASKOT OJAN ==================== -->
 <div class="mascot-zone">
-  <div class="ojan" id="ojan" title="Ojan — Maskot AL-MANAR">
-    <svg viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg">
-      <!-- ====== BADAN / BAJU BIRU ====== -->
-      <path d="M28 148 Q26 100 38 86 L82 86 Q94 100 92 148 Z" fill="#1c3d6e"/>
-      <!-- kerah kemeja putih -->
-      <path d="M48 86 L60 102 L72 86 Z" fill="#f6f2e6" stroke="#142c50" stroke-width="1.5"/>
-      <!-- dasi hijau -->
-      <path d="M60 96 L55 112 L60 122 L65 112 Z" fill="#1f5c3a"/>
-      <path d="M58 96 L62 96 L60 101 Z" fill="#143d27"/>
+  <div class="ojan" id="ojan" title="Ojan — Maskot Jurnalistik AL-MANAR">
+    <svg viewBox="0 0 140 170" xmlns="http://www.w3.org/2000/svg">
+      <!-- ===== BAJU BIRU (badan) ===== -->
+      <path d="M30 165 Q28 118 42 104 L98 104 Q112 118 110 165 Z" fill="#1e3a8a"/>
+      <!-- kerah baju biru -->
+      <path d="M55 104 L70 122 L85 104 Z" fill="#2d4fa8"/>
+      <path d="M58 104 L70 118 L82 104" fill="none" stroke="#0f2a6b" stroke-width="2"/>
       <!-- kancing baju -->
-      <circle cx="60" cy="128" r="1.6" fill="#c8bda2"/>
-      <circle cx="60" cy="138" r="1.6" fill="#c8bda2"/>
-
-      <!-- ====== PAPAN NAMA (dada kiri) ====== -->
-      <!-- posisi kiri dari sudut pandang Ojan = kanan layar? Pembaca melihat kiri layar = dada kanan Ojan. Kita taruh di kiri layar (dada kanan Ojan) sesuai permintaan "dada kiri" dari sudut pandang penonton -->
-      <g transform="translate(30,112)">
-        <rect x="0" y="0" width="34" height="15" rx="2" fill="#f6f2e6" stroke="#142c50" stroke-width="1.3"/>
-        <text x="17" y="7.5" font-family="Georgia, serif" font-size="4.2" font-weight="bold" fill="#142c50" text-anchor="middle">AL-MANAR</text>
-        <text x="17" y="12.5" font-family="Georgia, serif" font-size="3.4" fill="#1f5c3a" text-anchor="middle" font-style="italic">Ojan</text>
+      <circle cx="70" cy="130" r="2.2" fill="#0f2a6b"/>
+      <circle cx="70" cy="142" r="2.2" fill="#0f2a6b"/>
+      <circle cx="70" cy="154" r="2.2" fill="#0f2a6b"/>
+      <!-- saku kiri (dada kiri, dari sudut pandang pemakai = kanan layar) -->
+      <!-- PAPAN NAMA di dada KIRI (dari sudut pandang Ojan, berarti di sisi KIRI layar) -->
+      <g transform="translate(40, 118)">
+        <rect x="0" y="0" width="26" height="15" rx="2" fill="#f5efe0" stroke="#0f2a6b" stroke-width="1.5"/>
+        <text x="13" y="11" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#1e3a8a" text-anchor="middle" letter-spacing="0.5">OJAN</text>
       </g>
-
-      <!-- ====== LEHER ====== -->
-      <rect x="53" y="74" width="14" height="14" rx="4" fill="#e8c9a0"/>
-      <!-- ====== KEPALA ====== -->
-      <ellipse cx="60" cy="52" rx="30" ry="30" fill="#f0d2a8"/>
+      <!-- ===== LEHER ===== -->
+      <rect x="63" y="90" width="14" height="16" rx="4" fill="#e8c9a0"/>
+      <!-- ===== KEPALA ===== -->
+      <ellipse cx="70" cy="66" rx="32" ry="32" fill="#f0d2a8"/>
       <!-- telinga -->
-      <ellipse cx="30" cy="54" rx="5" ry="8" fill="#e8c9a0"/>
-      <ellipse cx="90" cy="54" rx="5" ry="8" fill="#e8c9a0"/>
-
-      <!-- ====== PECI (songkok hitam) ====== -->
-      <path d="M30 40 Q30 14 60 12 Q90 14 90 40 L88 42 Q60 34 32 42 Z" fill="#161616"/>
-      <path d="M30 40 Q60 32 90 40 L90 43 Q60 36 30 43 Z" fill="#2a2a2a"/>
-      <!-- garis tepi peci -->
-      <path d="M31 40 Q60 33 89 40" stroke="#000" stroke-width="1" fill="none" opacity="0.6"/>
-
-      <!-- ====== RAMBUT SISI ====== -->
-      <path d="M30 46 Q31 40 34 42 Q32 48 31 52 Z" fill="#2b1d12"/>
-      <path d="M90 46 Q89 40 86 42 Q88 48 89 52 Z" fill="#2b1d12"/>
-
-      <!-- ====== ALIS ====== -->
-      <path d="M42 44 Q48 40 54 44" stroke="#2b1d12" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-      <path d="M66 44 Q72 40 78 44" stroke="#2b1d12" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-
-      <!-- ====== MATA ====== -->
+      <ellipse cx="38" cy="68" rx="5" ry="8" fill="#e8c9a0"/>
+      <ellipse cx="102" cy="68" rx="5" ry="8" fill="#e8c9a0"/>
+      <!-- rambut samping -->
+      <path d="M38 60 Q40 42 52 40 Q48 48 46 58 Z" fill="#2b1d12"/>
+      <path d="M102 60 Q100 42 88 40 Q92 48 94 58 Z" fill="#2b1d12"/>
+      <!-- ===== PECI HITAM ===== -->
+      <path d="M36 44 Q40 18 70 16 Q100 18 104 44 Q102 40 96 40 L44 40 Q38 40 36 44 Z" fill="#1a1a1a"/>
+      <!-- garis peci (bordiran) -->
+      <path d="M38 42 Q70 34 102 42" fill="none" stroke="#3a3a3a" stroke-width="1.5"/>
+      <!-- pinggiran peci bawah -->
+      <rect x="35" y="40" width="70" height="5" rx="2" fill="#0f0f0f"/>
+      <!-- kilau peci -->
+      <path d="M44 26 Q52 22 60 24" stroke="#4a4a4a" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+      <!-- ===== ALIS ===== -->
+      <path d="M52 54 Q58 50 64 54" stroke="#2b1d12" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      <path d="M76 54 Q82 50 88 54" stroke="#2b1d12" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      <!-- ===== MATA ===== -->
       <g class="eye">
-        <ellipse cx="48" cy="54" rx="6.5" ry="7" fill="#fff"/>
-        <circle cx="48.5" cy="54.5" r="3.4" fill="#2b1d12"/>
-        <circle cx="49.5" cy="53" r="1.1" fill="#fff"/>
+        <ellipse cx="58" cy="64" rx="6.5" ry="7" fill="#fff"/>
+        <circle cx="58.5" cy="64.5" r="3.4" fill="#2b1d12"/>
+        <circle cx="59.5" cy="63" r="1.1" fill="#fff"/>
       </g>
       <g class="eye">
-        <ellipse cx="72" cy="54" rx="6.5" ry="7" fill="#fff"/>
-        <circle cx="72.5" cy="54.5" r="3.4" fill="#2b1d12"/>
-        <circle cx="73.5" cy="53" r="1.1" fill="#fff"/>
+        <ellipse cx="82" cy="64" rx="6.5" ry="7" fill="#fff"/>
+        <circle cx="82.5" cy="64.5" r="3.4" fill="#2b1d12"/>
+        <circle cx="83.5" cy="63" r="1.1" fill="#fff"/>
       </g>
-      <!-- kelopak mata untuk kedip -->
+      <!-- kelopak untuk kedip -->
       <g class="eye-lid">
-        <rect x="40" y="47" width="16" height="14" fill="#f0d2a8"/>
-        <rect x="64" y="47" width="16" height="14" fill="#f0d2a8"/>
+        <rect x="50" y="57" width="16" height="14" fill="#f0d2a8"/>
+        <rect x="74" y="57" width="16" height="14" fill="#f0d2a8"/>
       </g>
-
-      <!-- ====== KACAMATA ====== -->
+      <!-- ===== KACAMATA ===== -->
       <g stroke="#1a1a1a" stroke-width="2.4" fill="none">
-        <rect x="38" y="45" width="20" height="18" rx="5" fill="rgba(255,255,255,0.25)"/>
-        <rect x="62" y="45" width="20" height="18" rx="5" fill="rgba(255,255,255,0.25)"/>
-        <line x1="58" y1="54" x2="62" y2="54"/>
-        <line x1="38" y1="52" x2="28" y2="50"/>
-        <line x1="82" y1="52" x2="92" y2="50"/>
+        <rect x="48" y="55" width="20" height="18" rx="5" fill="rgba(255,255,255,0.28)"/>
+        <rect x="72" y="55" width="20" height="18" rx="5" fill="rgba(255,255,255,0.28)"/>
+        <line x1="68" y1="64" x2="72" y2="64"/>
+        <line x1="48" y1="62" x2="38" y2="60"/>
+        <line x1="92" y1="62" x2="102" y2="60"/>
       </g>
-      <path d="M42 48 L50 48 L44 60 Z" fill="rgba(255,255,255,0.45)"/>
-      <path d="M66 48 L74 48 L68 60 Z" fill="rgba(255,255,255,0.45)"/>
-
-      <!-- ====== HIDUNG ====== -->
-      <path d="M58 58 Q60 64 62 58" stroke="#c9a678" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <!-- ====== KUMIS ====== -->
-      <path d="M50 69 Q60 66 70 69" stroke="#2b1d12" stroke-width="2.4" fill="none" stroke-linecap="round"/>
-      <!-- ====== MULUT ====== -->
-      <path d="M53 74 Q60 79 67 74" stroke="#8b5a3c" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <!-- pantulan kacamata -->
+      <path d="M52 58 L60 58 L54 70 Z" fill="rgba(255,255,255,0.5)"/>
+      <path d="M76 58 L84 58 L78 70 Z" fill="rgba(255,255,255,0.5)"/>
+      <!-- hidung -->
+      <path d="M68 70 Q70 76 72 70" stroke="#c9a678" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <!-- kumis tipis -->
+      <path d="M58 80 Q70 77 82 80" stroke="#2b1d12" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      <!-- mulut tersenyum -->
+      <path d="M62 86 Q70 92 78 86" stroke="#8b5a3c" stroke-width="2.2" fill="none" stroke-linecap="round"/>
       <!-- pipi -->
-      <circle cx="40" cy="64" r="4" fill="rgba(220,120,100,0.22)"/>
-      <circle cx="80" cy="64" r="4" fill="rgba(220,120,100,0.22)"/>
-
-      <!-- ====== TANGAN MEMEGANG BUKU CATATAN ====== -->
-      <rect x="82" y="112" width="16" height="20" rx="1.5" fill="#f6f2e6" stroke="#142c50" stroke-width="1.2" transform="rotate(-8 90 122)"/>
-      <line x1="85" y1="118" x2="95" y2="116" stroke="#1f5c3a" stroke-width="1"/>
-      <line x1="85" y1="122" x2="95" y2="120" stroke="#1f5c3a" stroke-width="1"/>
-      <line x1="85" y1="126" x2="95" y2="124" stroke="#1f5c3a" stroke-width="1"/>
-      <!-- tangan -->
-      <circle cx="88" cy="108" r="5" fill="#f0d2a8"/>
+      <circle cx="48" cy="76" r="4.5" fill="rgba(220,120,100,0.28)"/>
+      <circle cx="92" cy="76" r="4.5" fill="rgba(220,120,100,0.28)"/>
     </svg>
   </div>
 
-  <div class="bubble" id="bubbleText">"Assalamu'alaikum! Saya Ojan, siap menemani Anda membaca."</div>
+  <div class="bubble" id="bubbleText">"Assalamu'alaikum! Saya Ojan, siap menjaga setiap berita AL-MANAR."</div>
 </div>
 
 <!-- ==================== NAV ==================== -->
-<nav class="section-nav" id="navFilter">
+<nav class="section-nav">
   <a data-filter="Semua" class="active">Semua</a>
-  <a data-filter="Pondok">Pondok</a>
+  <a data-filter="Kegiatan Santri">Kegiatan Santri</a>
   <a data-filter="Pendidikan">Pendidikan</a>
-  <a data-filter="Kegiatan">Kegiatan</a>
   <a data-filter="Prestasi">Prestasi</a>
-  <a data-filter="Opini">Opini</a>
-  <a data-filter="Nasional">Nasional</a>
+  <a data-filter="Kajian">Kajian</a>
+  <a data-filter="Sosial">Sosial</a>
+  <a data-filter="Ekonomi">Ekonomi</a>
 </nav>
-
-<!-- ==================== OWNER BAR ==================== -->
-<div class="owner-bar">
-  <span class="status" id="ownerStatus">👁 Mode Pengunjung — hanya bisa membaca</span>
-  <button class="btn ghost" id="loginBtn" style="padding:6px 14px;font-size:10.5px;">Login Pemilik</button>
-  <button class="btn ghost" id="logoutBtn" style="display:none;padding:6px 14px;font-size:10.5px;">Keluar</button>
-</div>
 
 <!-- ==================== MAIN ==================== -->
 <main>
   <div class="toolbar">
-    <h2>Beranda <span>Redaksi</span> <span id="countLabel" style="font-size:13px;color:var(--muted);text-transform:none;letter-spacing:0;font-weight:400;">— 0 artikel</span></h2>
-    <div class="actions">
+    <h2>Beranda <span>Redaksi</span> <span id="countLabel">— 0 artikel</span></h2>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
       <button class="btn ghost" id="exportBtn">Ekspor JSON</button>
-      <button class="btn" id="addBtn" style="display:none;">+ Tambah Artikel</button>
+      <button class="btn emas" id="addBtn">+ Tambah Artikel</button>
     </div>
   </div>
 
-  <section id="articles"></section>
+  <section id="articles">
+    <!-- kartu artikel dirender di sini -->
+  </section>
 </main>
+
+<!-- ==================== MODAL LOGIN PEMILIK ==================== -->
+<div class="modal-overlay" id="loginOverlay">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h3>Akses Pemilik Server</h3>
+    <div class="modal-note">
+      Hanya pemilik server yang dapat menambah atau mengubah artikel. Masukkan kata sandi redaksi untuk melanjutkan.
+    </div>
+    <label for="loginPass">Kata Sandi</label>
+    <input type="password" id="loginPass" placeholder="Masukkan kata sandi...">
+    <div class="modal-actions">
+      <button class="btn ghost" id="loginCancel">Batal</button>
+      <button class="btn" id="loginSubmit">Masuk</button>
+    </div>
+  </div>
+</div>
 
 <!-- ==================== MODAL EDITOR ==================== -->
 <div class="modal-overlay" id="modalOverlay">
@@ -643,12 +697,12 @@
 
     <label for="fKategori">Kategori</label>
     <select id="fKategori">
-      <option>Pondok</option>
+      <option>Kegiatan Santri</option>
       <option>Pendidikan</option>
-      <option>Kegiatan</option>
       <option>Prestasi</option>
-      <option>Opini</option>
-      <option>Nasional</option>
+      <option>Kajian</option>
+      <option>Sosial</option>
+      <option>Ekonomi</option>
     </select>
 
     <label for="fJudul">Judul Artikel</label>
@@ -670,44 +724,25 @@
   </div>
 </div>
 
-<!-- ==================== MODAL LOGIN PEMILIK ==================== -->
-<div class="modal-overlay" id="loginOverlay">
-  <div class="modal" style="max-width:420px;">
-    <h3>Login Pemilik Server</h3>
-    <div class="login-note">
-      Hanya <strong>pemilik server / admin redaksi</strong> yang dapat membuat, mengedit, dan menghapus artikel.
-      Pengunjung lain hanya bisa membaca.
-    </div>
-    <label for="loginPass">Kata Sandi Pemilik</label>
-    <input type="password" id="loginPass" placeholder="Masukkan kata sandi...">
-    <div class="modal-actions">
-      <button class="btn ghost" id="loginCancel">Batal</button>
-      <button class="btn" id="loginSubmit">Masuk</button>
-    </div>
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <!-- ==================== FOOTER ==================== -->
 <footer>
+  <div class="f-ornament">❁ ✦ ❁</div>
   <div class="f-title">AL-MANAR</div>
-  <div class="f-sub">Kreasi Bagian Jurnalistik Ponpes Al Madani Cikalong</div>
-  <div>Jurnalisme yang Mencerahkan &nbsp;•&nbsp; Kebenaran di Atas Kepentingan</div>
+  <div class="f-sub">مَنَارُ الْعِلْمِ — Menara Ilmu</div>
+  <div>Divisi Jurnalistik Pondok Pesantren Al Madani Cikalong</div>
   <div class="f-links">
     <span>Tentang Kami</span>
     <span>Redaksi</span>
-    <span>Pedoman Media</span>
+    <span>Pedoman Media Santri</span>
     <span>Kontak</span>
   </div>
-  <div style="font-size:10px;opacity:.75;">&copy; <span id="year"></span> AL-MANAR — Ponpes Al Madani Cikalong. Seluruh hak cipta dilindungi.</div>
+  <div class="f-ornament">❁ ✦ ❁</div>
+  <div class="copy">&copy; <span id="year"></span> AL-MANAR — Ponpes Al Madani Cikalong. Seluruh hak cipta dilindungi.</div>
 </footer>
 
 <script>
 /* ==========================================================
-   AL-MANAR — Sistem Artikel dengan Mode Pemilik
-   - Data disimpan di localStorage (per perangkat/browser)
-   - Hanya pemilik (setelah login) yang bisa tambah/edit/hapus
-   ========================================================== */
-
-const STORAGE_KEY  = 'al
+   AL-MANAR — Jurnalistik Ponpes Al Madani Cikalong
+   Sistem Artikel Manual dengan Proteksi Pemilik Server
