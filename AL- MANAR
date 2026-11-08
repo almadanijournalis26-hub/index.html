@@ -1,940 +1,769 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AL-MANAR — Jurnalistik Pesantren Almadani Cikalong</title>
-  <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AL-MANAR — Jurnalistik Pesantren Al-Madani Cikalong</title>
+<style>
+  /* ========== RESET & VARIABEL ========== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --hijau-tua: #0d3b1e;
+    --hijau-muda: #1e6b3a;
+    --krem: #f5e6c8;
+    --emas: #d4a843;
+    --piksel-bg: #0a1f12;
+    --teks-terang: #e8dfc8;
+    --font-utama: 'Courier New', Courier, monospace;
+  }
+
+  /* ========== PIXEL BACKGROUND (CSS only) ========== */
+  body {
+    font-family: var(--font-utama);
+    background-color: var(--piksel-bg);
+    color: var(--teks-terang);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    image-rendering: pixelated;
+  }
+
+  /* Lapisan pixel pattern */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(30, 107, 58, 0.15) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(30, 107, 58, 0.15) 1px, transparent 1px),
+      radial-gradient(circle at 20% 30%, rgba(212, 168, 67, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(30, 107, 58, 0.1) 0%, transparent 50%);
+    background-size: 16px 16px, 16px 16px, 100% 100%, 100% 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Efek “bintang pixel” berkedip */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(2px 2px at 10% 20%, rgba(212,168,67,0.5) 50%, transparent 50%),
+      radial-gradient(2px 2px at 90% 15%, rgba(212,168,67,0.4) 50%, transparent 50%),
+      radial-gradient(2px 2px at 50% 80%, rgba(212,168,67,0.3) 50%, transparent 50%),
+      radial-gradient(2px 2px at 75% 45%, rgba(212,168,67,0.4) 50%, transparent 50%),
+      radial-gradient(2px 2px at 25% 65%, rgba(212,168,67,0.3) 50%, transparent 50%);
+    background-size: 200px 200px;
+    animation: blink 4s infinite alternate;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes blink {
+    0% { opacity: 0.4; }
+    100% { opacity: 1; }
+  }
+
+  /* ========== LAYOUT ========== */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px 16px 80px;
+  }
+
+  /* ========== HEADER ========== */
+  header {
+    text-align: center;
+    padding: 32px 0 16px;
+    border-bottom: 4px double var(--emas);
+    margin-bottom: 24px;
+    position: relative;
+  }
+  header h1 {
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    letter-spacing: 6px;
+    color: var(--emas);
+    text-shadow: 3px 3px 0 var(--hijau-tua), 0 0 20px rgba(212,168,67,0.3);
+    font-weight: 700;
+  }
+  header .tagline {
+    font-size: 0.8rem;
+    color: var(--krem);
+    letter-spacing: 2px;
+    margin-top: 6px;
+    opacity: 0.8;
+  }
+  .header-deco {
+    font-size: 0.7rem;
+    color: var(--hijau-muda);
+    margin-top: 4px;
+    letter-spacing: 4px;
+  }
+
+  /* ========== NAVIGASI ========== */
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  nav button {
+    background: var(--hijau-tua);
+    color: var(--krem);
+    border: 2px solid var(--hijau-muda);
+    padding: 8px 18px;
+    font-family: var(--font-utama);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    image-rendering: pixelated;
+    box-shadow: 2px 2px 0 #061a0e;
+  }
+  nav button:hover {
+    background: var(--hijau-muda);
+    border-color: var(--emas);
+    transform: translate(-1px, -1px);
+    box-shadow: 3px 3px 0 #061a0e;
+  }
+  nav button.active {
+    background: var(--emas);
+    color: var(--hijau-tua);
+    border-color: var(--emas);
+    font-weight: bold;
+  }
+
+  /* ========== SECTION ========== */
+  .section { display: none; }
+  .section.active { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  /* ========== KARTU ARTIKEL ========== */
+  .artikel-grid { display: flex; flex-direction: column; gap: 16px; }
+  .artikel-card {
+    background: rgba(13, 59, 30, 0.85);
+    border: 2px solid var(--hijau-muda);
+    padding: 18px 20px;
+    box-shadow: 4px 4px 0 #061a0e;
+    transition: border-color 0.2s;
+    position: relative;
+  }
+  .artikel-card:hover { border-color: var(--emas); }
+  .artikel-card .kategori {
+    display: inline-block;
+    background: var(--emas);
+    color: var(--hijau-tua);
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .artikel-card h3 {
+    color: var(--krem);
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+  }
+  .artikel-card .meta {
+    font-size: 0.65rem;
+    color: #8faa8f;
+    margin-bottom: 8px;
+  }
+  .artikel-card .ringkasan {
+    font-size: 0.8rem;
+    color: #c4d4c4;
+    line-height: 1.6;
+  }
+  .artikel-card .aksi {
+    margin-top: 10px;
+    display: flex;
+    gap: 8px;
+  }
+  .artikel-card .aksi button {
+    background: transparent;
+    border: 1px solid var(--hijau-muda);
+    color: var(--krem);
+    font-family: var(--font-utama);
+    font-size: 0.65rem;
+    padding: 4px 10px;
+    cursor: pointer;
+  }
+  .artikel-card .aksi button:hover { border-color: var(--emas); color: var(--emas); }
+  .artikel-card .aksi button.hapus:hover { border-color: #c44; color: #e66; }
+
+  /* ========== FORM ========== */
+  .form-group { margin-bottom: 14px; }
+  .form-group label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--emas);
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    background: #0a1f12;
+    border: 2px solid var(--hijau-muda);
+    color: var(--krem);
+    font-family: var(--font-utama);
+    font-size: 0.8rem;
+    padding: 10px 12px;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus { border-color: var(--emas); }
+  .form-group textarea { min-height: 120px; resize: vertical; }
+
+  .btn-utama {
+    background: var(--emas);
+    color: var(--hijau-tua);
+    border: 2px solid var(--emas);
+    font-family: var(--font-utama);
+    font-weight: bold;
+    font-size: 0.8rem;
+    padding: 10px 24px;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 #061a0e;
+    transition: all 0.1s;
+    letter-spacing: 1px;
+  }
+  .btn-utama:hover { background: #e8c060; transform: translate(-1px,-1px); box-shadow: 4px 4px 0 #061a0e; }
+  .btn-utama:active { transform: translate(2px,2px); box-shadow: 0 0 0 #061a0e; }
+
+  .btn-batal {
+    background: transparent;
+    color: #8faa8f;
+    border: 2px solid #2a4a2a;
+    font-family: var(--font-utama);
+    font-size: 0.8rem;
+    padding: 10px 24px;
+    cursor: pointer;
+  }
+
+  /* ========== ALMA MASKOT (Q版像素风) ========== */
+  .alma-wrapper {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    cursor: pointer;
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.6));
+    transition: transform 0.2s;
+    user-select: none;
+  }
+  .alma-wrapper:hover { transform: scale(1.08); }
+
+  /* Alma digambar sepenuhnya dengan CSS pixel-art style */
+  .alma {
+    width: 80px;
+    height: 96px;
+    position: relative;
+    image-rendering: pixelated;
+  }
+  /* Peci (topi) */
+  .alma .peci {
+    width: 52px;
+    height: 18px;
+    background: #1a1a2e;
+    position: absolute;
+    top: 0;
+    left: 14px;
+    border-radius: 4px 4px 0 0;
+    border: 2px solid #2a2a4e;
+    box-shadow: inset 0 -3px 0 #0a0a1e;
+  }
+  .alma .peci::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 4px;
+    width: 44px;
+    height: 4px;
+    background: #d4a843;
+  }
+  /* Kepala */
+  .alma .kepala {
+    width: 60px;
+    height: 56px;
+    background: #f0d0a0;
+    border-radius: 8px;
+    position: absolute;
+    top: 16px;
+    left: 10px;
+    border: 2px solid #c8a878;
+    box-shadow: inset 0 -4px 0 #e0c090;
+  }
+  /* Kacamata */
+  .alma .kacamata {
+    position: absolute;
+    top: 36px;
+    left: 16px;
+    width: 48px;
+    height: 14px;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .alma .lensa {
+    width: 20px;
+    height: 14px;
+    background: rgba(100, 180, 255, 0.5);
+    border: 3px solid #2a2a2a;
+    border-radius: 3px;
+    box-shadow: inset 0 0 4px rgba(100,180,255,0.6);
+  }
+  .alma .jembatan {
+    width: 4px;
+    height: 3px;
+    background: #2a2a2a;
+  }
+  /* Mata (di belakang lensa) */
+  .alma .mata {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #1a1a1a;
+    border-radius: 50%;
+    top: 41px;
+  }
+  .alma .mata-kiri { left: 24px; }
+  .alma .mata-kanan { left: 48px; }
+  /* Mulut */
+  .alma .mulut {
+    position: absolute;
+    width: 10px;
+    height: 4px;
+    background: #c06060;
+    border-radius: 0 0 6px 6px;
+    top: 56px;
+    left: 35px;
+  }
+  /* Badan */
+  .alma .badan {
+    width: 56px;
+    height: 30px;
+    background: #f5f5f5;
+    position: absolute;
+    top: 70px;
+    left: 12px;
+    border: 2px solid #ccc;
+    border-radius: 4px 4px 6px 6px;
+  }
+  .alma .badan::after {
+    content: 'AL-MANAR';
+    position: absolute;
+    font-size: 4px;
+    font-family: monospace;
+    color: #1e6b3a;
+    top: 10px;
+    left: 6px;
+    letter-spacing: 0.5px;
+  }
+  /* Tangan */
+  .alma .tangan-kiri, .alma .tangan-kanan {
+    width: 10px;
+    height: 18px;
+    background: #f0d0a0;
+    border: 2px solid #c8a878;
+    border-radius: 4px;
+    position: absolute;
+    top: 72px;
+  }
+  .alma .tangan-kiri { left: 0; }
+  .alma .tangan-kanan { right: 0; }
+
+  /* Gelembung dialog Alma */
+  .alma-bubble {
+    position: fixed;
+    bottom: 130px;
+    right: 20px;
+    max-width: 260px;
+    background: var(--krem);
+    color: var(--hijau-tua);
+    border: 3px solid var(--emas);
+    padding: 12px 16px;
+    font-family: var(--font-utama);
+    font-size: 0.72rem;
+    line-height: 1.5;
+    box-shadow: 4px 4px 0 #061a0e;
+    z-index: 101;
+    display: none;
+    border-radius: 8px 8px 0 8px;
+  }
+  .alma-bubble.show { display: block; animation: popIn 0.25s ease; }
+  .alma-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    right: 24px;
+    border-left: 10px solid transparent;
+    border-right: 0 solid transparent;
+    border-top: 12px solid var(--emas);
+  }
+  .alma-bubble .tutup {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: #8f6a20;
+  }
+  @keyframes popIn {
+    from { opacity: 0; transform: scale(0.85) translateY(8px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* ========== ADMIN PANEL ========== */
+  .admin-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 100;
+    background: var(--hijau-tua);
+    border: 2px solid var(--emas);
+    color: var(--emas);
+    font-family: var(--font-utama);
+    font-size: 0.7rem;
+    padding: 6px 14px;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 #061a0e;
+  }
+  .admin-toggle:hover { background: var(--emas); color: var(--hijau-tua); }
+
+  .admin-panel {
+    display: none;
+    background: rgba(13, 59, 30, 0.95);
+    border: 2px solid var(--emas);
+    padding: 20px;
+    margin-bottom: 24px;
+    box-shadow: 4px 4px 0 #061a0e;
+  }
+  .admin-panel.show { display: block; }
+  .admin-panel h3 {
+    color: var(--emas);
+    font-size: 0.9rem;
+    margin-bottom: 14px;
+    letter-spacing: 2px;
+    border-bottom: 1px solid var(--hijau-muda);
+    padding-bottom: 8px;
+  }
+
+  /* ========== KOSONG ========== */
+  .kosong {
+    text-align: center;
+    padding: 48px 16px;
+    color: #5a7a5a;
+    font-size: 0.8rem;
+    border: 2px dashed #2a4a2a;
+  }
+  .kosong .ikon { font-size: 2rem; margin-bottom: 8px; }
+
+  /* ========== TENTANG ========== */
+  .tentang-box {
+    background: rgba(13, 59, 30, 0.85);
+    border: 2px solid var(--hijau-muda);
+    padding: 24px;
+    line-height: 1.8;
+    font-size: 0.82rem;
+    color: #c4d4c4;
+    box-shadow: 4px 4px 0 #061a0e;
+  }
+  .tentang-box h2 {
+    color: var(--emas);
+    font-size: 1rem;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+  .tentang-box .highlight {
+    color: var(--emas);
+    font-weight: bold;
+  }
+  .tentang-box ul {
+    margin: 10px 0 10px 20px;
+    list-style: square;
+  }
+  .tentang-box ul li { margin-bottom: 6px; }
+
+  /* ========== DETAIL ARTIKEL ========== */
+  .detail-artikel {
+    background: rgba(13, 59, 30, 0.9);
+    border: 2px solid var(--emas);
+    padding: 28px 24px;
+    box-shadow: 4px 4px 0 #061a0e;
+  }
+  .detail-artikel h2 {
+    color: var(--emas);
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .detail-artikel .meta {
+    font-size: 0.7rem;
+    color: #8faa8f;
+    margin-bottom: 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--hijau-muda);
+  }
+  .detail-artikel .isi {
+    font-size: 0.85rem;
+    line-height: 1.9;
+    color: #d4e4d4;
+    white-space: pre-wrap;
+  }
+  .detail-artikel .kembali {
+    display: inline-block;
+    margin-top: 20px;
+    color: var(--emas);
+    cursor: pointer;
+    font-size: 0.75rem;
+    border-bottom: 1px dashed var(--emas);
+  }
+
+  /* ========== RESPONSIF ========== */
+  @media (max-width: 600px) {
+    .alma { width: 64px; height: 78px; transform: scale(0.8); transform-origin: bottom right; }
+    .alma-bubble { max-width: 200px; font-size: 0.65rem; bottom: 110px; }
+    .admin-toggle { top: 8px; right: 8px; font-size: 0.6rem; padding: 4px 10px; }
+  }
+</style>
 </head>
 <body>
 
-  <!-- ========== NAVBAR ========== -->
-  <nav class="navbar">
-    <div class="nav-container">
-      <div class="logo-area">
-        <div class="logo-icon">📰</div>
-        <div>
-          <h1 class="logo-text">AL-MANAR</h1>
-          <p class="logo-sub">Jurnalistik Almadani Cikalong</p>
-        </div>
-      </div>
-      <ul class="nav-links">
-        <li><a href="#home" class="active">Beranda</a></li>
-        <li><a href="#artikel">Artikel</a></li>
-        <li><a href="#tentang">Tentang</a></li>
-        <li><a href="#operator" class="btn-operator">✍️ Operator</a></li>
-      </ul>
-      <div class="hamburger" onclick="toggleMenu()">☰</div>
+<!-- ===== ADMIN TOGGLE ===== -->
+<button class="admin-toggle" onclick="toggleAdmin()">⚙ OPERATOR</button>
+
+<!-- ===== ALMA MASKOT ===== -->
+<div class="alma-bubble" id="almaBubble">
+  <span class="tutup" onclick="sembunyikanAlma()">✕</span>
+  <div id="almaText">Assalamu‘alaikum! Saya Alma, maskot AL-MANAR. Klik saya untuk info pesantren!</div>
+</div>
+
+<div class="alma-wrapper" onclick="klikAlma()" title="Klik Alma untuk info">
+  <div class="alma">
+    <div class="peci"></div>
+    <div class="kepala"></div>
+    <div class="mata mata-kiri"></div>
+    <div class="mata mata-kanan"></div>
+    <div class="kacamata">
+      <div class="lensa"></div>
+      <div class="jembatan"></div>
+      <div class="lensa"></div>
     </div>
+    <div class="mulut"></div>
+    <div class="badan"></div>
+    <div class="tangan-kiri"></div>
+    <div class="tangan-kanan"></div>
+  </div>
+</div>
+
+<!-- ===== KONTEN UTAMA ===== -->
+<div class="container">
+
+  <header>
+    <h1>AL-MANAR</h1>
+    <div class="tagline">JURNALISTIK PESANTREN AL-MADANI CIKALONG</div>
+    <div class="header-deco">✦ CAHAYA INFORMASI SANTRI ✦</div>
+  </header>
+
+  <nav>
+    <button class="active" onclick="switchTab('beranda', this)">BERANDA</button>
+    <button onclick="switchTab('tentang', this)">TENTANG</button>
+    <button onclick="switchTab('kelola', this)">KELOLA ARTIKEL</button>
   </nav>
 
-  <!-- ========== HERO / BERANDA ========== -->
-  <section id="home" class="hero">
-    <div class="hero-bg-pattern"></div>
-    <div class="hero-container">
-      <div class="hero-text">
-        <span class="badge-jurnalis">📡 Media Pesantren Modern</span>
-        <h2 class="hero-title">
-          Suara Santri,<br>
-          <span class="highlight">Nalar Jurnalis</span>
-        </h2>
-        <p class="hero-desc">
-          AL-MANAR adalah kanal jurnalistik resmi Pesantren Almadani Cikalong, Majalengka.
-          Menyajikan berita, gagasan, dan dinamika pesantren dengan semangat pesantren modern
-          yang berlandaskan nilai keislaman dan kebangsaan.
-        </p>
-        <div class="hero-actions">
-          <a href="#artikel" class="btn-primary">Baca Artikel</a>
-          <a href="#tentang" class="btn-outline">Tentang Kami</a>
-        </div>
-        <div class="hero-stats">
-          <div><strong>2016</strong><span>Berdiri</span></div>
-          <div><strong>310+</strong><span>Santri</span></div>
-          <div><strong>28</strong><span>Hafidz 30 Juz</span></div>
-        </div>
+  <!-- ===== SECTION BERANDA ===== -->
+  <div class="section active" id="section-beranda">
+    <div class="artikel-grid" id="daftarArtikel">
+      <!-- Artikel akan di-render oleh JS -->
+    </div>
+  </div>
+
+  <!-- ===== SECTION DETAIL (hidden, muncul saat klik baca) ===== -->
+  <div class="section" id="section-detail">
+    <div class="detail-artikel">
+      <h2 id="detailJudul"></h2>
+      <div class="meta" id="detailMeta"></div>
+      <div class="isi" id="detailIsi"></div>
+      <span class="kembali" onclick="switchTab('beranda', document.querySelector('nav button'))">← Kembali ke Beranda</span>
+    </div>
+  </div>
+
+  <!-- ===== SECTION TENTANG ===== -->
+  <div class="section" id="section-tentang">
+    <div class="tentang-box">
+      <h2>▸ TENTANG AL-MANAR</h2>
+      <p><span class="highlight">AL-MANAR</span> adalah kanal jurnalistik resmi bagian jurnalistik Pesantren Al-Madani Cikalong, Majalengka. Nama “Al-Manar” berarti “cahaya” atau “menara pencerahan” — mencerminkan misi kami untuk menyampaikan informasi yang terang, akurat, dan bermanfaat bagi santri, wali santri, dan masyarakat luas.</p>
+      <br>
+      <h2>▸ PESANTREN AL-MADANI CIKALONG</h2>
+      <p>Pondok Pesantren Al-Madani Cikalong berdiri pada <span class="highlight">4 Juni 2016 (1 Ramadhan 1438 H)</span> di Desa Cikalong, Kecamatan Sukahaji, Kabupaten Majalengka, Jawa Barat.</p>
+      <ul>
+        <li><span class="highlight">Program unggulan:</span> Tahfizul Qur‘an yang dilaksanakan secara intensif sejak kelas 3 SMP [citation:2].</li>
+        <li><span class="highlight">Ekstrakurikuler:</span> Pencak silat Merpati Putih, drumband, senam, <span class="highlight">jurnalis</span>, bahasa, dan pramuka [citation:4].</li>
+        <li><span class="highlight">Bahasa:</span> Arab digunakan sebagai bahasa utama komunikasi dan pembelajaran [citation:3].</li>
+        <li><span class="highlight">Jumlah santri:</span> ±310 orang pada tahun ajaran 2024–2025 [citation:3].</li>
+        <li><span class="highlight">Manajemen:</span> Menerapkan strategi digital berbasis teknologi informasi dalam pembelajaran dan pengelolaan sumber daya [citation:12].</li>
+      </ul>
+      <br>
+      <p style="font-size:0.7rem; color:#6a8a6a; border-top:1px solid #2a4a2a; padding-top:12px;">AL-MANAR dikelola oleh Divisi Jurnalistik Pesantren Al-Madani Cikalong. Seluruh konten artikel dapat dikelola secara manual oleh operator melalui panel di pojok kanan atas.</p>
+    </div>
+  </div>
+
+  <!-- ===== SECTION KELOLA (ADMIN) ===== -->
+  <div class="section" id="section-kelola">
+    <div class="admin-panel show" style="display:block; margin-bottom:0;">
+      <h3 id="formTitle">▸ TAMBAH ARTIKEL BARU</h3>
+      <input type="hidden" id="editId" value="">
+      <div class="form-group">
+        <label>JUDUL ARTIKEL</label>
+        <input type="text" id="inputJudul" placeholder="Contoh: Kegiatan Jurnalis Santri Al-Madani">
       </div>
-
-      <!-- MASKOT MANAR -->
-      <div class="hero-maskot">
-        <div class="maskot-wrapper" id="maskotWrapper">
-          <div class="maskot-bubble" id="maskotBubble">
-            <span id="maskotText">Assalamu'alaikum! Saya Manar, siap membawa kabar dari Pesantren Almadani Cikalong. 📰</span>
-          </div>
-
-          <svg class="maskot-svg" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg">
-            <!-- Peci -->
-            <ellipse cx="100" cy="52" rx="52" ry="14" fill="#1a3a2a"/>
-            <path d="M52 52 Q52 8 100 8 Q148 8 148 52" fill="#1a3a2a"/>
-            <ellipse cx="100" cy="52" rx="52" ry="14" fill="none" stroke="#c9a84c" stroke-width="2"/>
-            <!-- Kepala -->
-            <ellipse cx="100" cy="95" rx="42" ry="46" fill="#f5d0a9"/>
-            <!-- Rambut samping -->
-            <path d="M58 88 Q55 70 68 62" stroke="#3d2b1f" stroke-width="6" fill="none" stroke-linecap="round"/>
-            <path d="M142 88 Q145 70 132 62" stroke="#3d2b1f" stroke-width="6" fill="none" stroke-linecap="round"/>
-            <!-- Alis -->
-            <path d="M76 88 Q84 83 92 88" stroke="#3d2b1f" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-            <path d="M108 88 Q116 83 124 88" stroke="#3d2b1f" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-            <!-- Mata -->
-            <circle cx="84" cy="100" r="7" fill="white"/>
-            <circle cx="116" cy="100" r="7" fill="white"/>
-            <circle cx="85" cy="101" r="3.5" fill="#1a1a1a"/>
-            <circle cx="117" cy="101" r="3.5" fill="#1a1a1a"/>
-            <!-- Kacamata -->
-            <ellipse cx="84" cy="100" rx="14" ry="12" fill="none" stroke="#2c2c2c" stroke-width="2.5"/>
-            <ellipse cx="116" cy="100" rx="14" ry="12" fill="none" stroke="#2c2c2c" stroke-width="2.5"/>
-            <line x1="98" y1="100" x2="102" y2="100" stroke="#2c2c2c" stroke-width="2.5"/>
-            <!-- Hidung -->
-            <path d="M100 100 Q103 110 100 112" stroke="#e0b88a" stroke-width="2" fill="none" stroke-linecap="round"/>
-            <!-- Mulut (senyum) -->
-            <path d="M88 122 Q100 132 112 122" stroke="#c0392b" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <!-- Leher -->
-            <rect x="88" y="138" width="24" height="18" rx="6" fill="#f5d0a9"/>
-            <!-- Badan / Koko -->
-            <path d="M55 175 Q55 150 100 150 Q145 150 145 175 L145 260 Q100 270 55 260 Z" fill="#f8f9fa"/>
-            <!-- Kerah koko -->
-            <path d="M88 150 L100 165 L112 150" fill="none" stroke="#d4d4d4" stroke-width="2"/>
-            <!-- Dasi / aksen jurnalis -->
-            <rect x="96" y="165" width="8" height="40" rx="3" fill="#c9a84c"/>
-            <!-- Sarung / bawahan -->
-            <path d="M55 260 Q100 270 145 260 L145 280 L55 280 Z" fill="#2d5a3d"/>
-            <!-- Pola sarung -->
-            <line x1="70" y1="262" x2="70" y2="280" stroke="#c9a84c" stroke-width="1.5" opacity="0.5"/>
-            <line x1="85" y1="264" x2="85" y2="280" stroke="#c9a84c" stroke-width="1.5" opacity="0.5"/>
-            <line x1="100" y1="265" x2="100" y2="280" stroke="#c9a84c" stroke-width="1.5" opacity="0.5"/>
-            <line x1="115" y1="264" x2="115" y2="280" stroke="#c9a84c" stroke-width="1.5" opacity="0.5"/>
-            <line x1="130" y1="262" x2="130" y2="280" stroke="#c9a84c" stroke-width="1.5" opacity="0.5"/>
-            <!-- Tangan memegang mic -->
-            <path d="M145 200 Q170 195 175 210" stroke="#f5d0a9" stroke-width="10" fill="none" stroke-linecap="round"/>
-            <rect x="170" y="205" width="10" height="22" rx="5" fill="#333"/>
-            <rect x="172" y="227" width="6" height="8" rx="2" fill="#666"/>
-          </svg>
-
-          <div class="maskot-shadow"></div>
-        </div>
+      <div class="form-group">
+        <label>KATEGORI</label>
+        <select id="inputKategori">
+          <option value="BERITA">BERITA</option>
+          <option value="KEGIATAN">KEGIATAN</option>
+          <option value="PRESTASI">PRESTASI</option>
+          <option value="OPINI">OPINI</option>
+          <option value="PENGUMUMAN">PENGUMUMAN</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>PENULIS / REPORTER</label>
+        <input type="text" id="inputPenulis" placeholder="Nama santri / operator">
+      </div>
+      <div class="form-group">
+        <label>RINGKASAN SINGKAT (tampil di beranda)</label>
+        <textarea id="inputRingkasan" style="min-height:60px;" placeholder="Satu atau dua kalimat ringkasan..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>ISI ARTIKEL LENGKAP</label>
+        <textarea id="inputIsi" placeholder="Tulis isi artikel di sini..."></textarea>
+      </div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap;">
+        <button class="btn-utama" onclick="simpanArtikel()">💾 SIMPAN ARTIKEL</button>
+        <button class="btn-batal" onclick="resetForm()">BATAL</button>
       </div>
     </div>
-  </section>
 
-  <!-- ========== ARTIKEL SECTION ========== -->
-  <section id="artikel" class="artikel-section">
-    <div class="container">
-      <div class="section-header">
-        <h2>📄 Artikel & Berita</h2>
-        <p>Kanal informasi jurnalistik Pesantren Almadani Cikalong. <em>Belum ada artikel — operator dapat menambahkan melalui panel.</em></p>
-      </div>
+    <div style="margin-top:24px;">
+      <h3 style="color:var(--emas); font-size:0.85rem; letter-spacing:2px; margin-bottom:12px;">▸ DAFTAR ARTIKEL TERSIMPAN</h3>
+      <div id="daftarKelola" class="artikel-grid"></div>
+    </div>
+  </div>
 
-      <!-- Daftar artikel (kosong, akan diisi oleh JS / operator) -->
-      <div id="artikelList" class="artikel-grid">
-        <!-- Placeholder awal: kosong -->
-        <div class="artikel-empty" id="artikelEmpty">
-          <div class="empty-icon">📝</div>
-          <h3>Belum Ada Artikel</h3>
-          <p>Operator dapat menambahkan artikel baru melalui panel operator di bawah.</p>
-          <button class="btn-primary" onclick="scrollToOperator()">Tambah Artikel Pertama</button>
-        </div>
+</div>
+
+<!-- ===== SCRIPT ===== -->
+<script>
+/* ============================================================
+   DATA & STORAGE
+   ============================================================ */
+const STORAGE_KEY = 'almanar_artikel';
+
+function ambilArtikel() {
+  try {
+    const data = localStorage.getItem(STORAGE_KEY);
+    return data ? JSON.parse(data) : [];
+  } catch { return []; }
+}
+
+function simpanKeStorage(arr) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+}
+
+/* ============================================================
+   RENDER BERANDA
+   ============================================================ */
+function renderBeranda() {
+  const list = ambilArtikel();
+  const container = document.getElementById('daftarArtikel');
+  if (list.length === 0) {
+    container.innerHTML = `
+      <div class="kosong">
+        <div class="ikon">📰</div>
+        Belum ada artikel.<br>Operator dapat menambahkan artikel melalui menu <strong>KELOLA ARTIKEL</strong>.
+      </div>`;
+    return;
+  }
+  // Urutkan terbaru di atas
+  const sorted = [...list].reverse();
+  container.innerHTML = sorted.map(a => `
+    <div class="artikel-card">
+      <span class="kategori">${a.kategori || 'BERITA'}</span>
+      <h3>${escapeHtml(a.judul)}</h3>
+      <div class="meta">${a.penulis || 'Redaksi AL-MANAR'} · ${a.tanggal || '-'}</div>
+      <div class="ringkasan">${escapeHtml(a.ringkasan || '')}</div>
+      <div class="aksi">
+        <button onclick="bacaArtikel('${a.id}')">BACA SELENGKAPNYA →</button>
       </div>
     </div>
-  </section>
+  `).join('');
+}
 
-  <!-- ========== TENTANG ========== -->
-  <section id="tentang" class="tentang-section">
-    <div class="container">
-      <div class="section-header">
-        <h2>🏫 Tentang AL-MANAR</h2>
-        <p>Jurnalistik Pesantren Almadani Cikalong</p>
-      </div>
-      <div class="tentang-grid">
-        <div class="tentang-card">
-          <h3>📌 Siapa Kami</h3>
-          <p>AL-MANAR adalah bagian jurnalistik dari Pesantren Almadani Cikalong, Kecamatan Sukahaji, Kabupaten Majalengka. Kami mengabarkan dinamika pesantren, prestasi santri, dan gagasan keislaman yang moderat.</p>
-        </div>
-        <div class="tentang-card">
-          <h3>🎯 Visi Jurnalistik</h3>
-          <p>Menjadi suara santri yang cerdas, berimbang, dan berakhlak — menyebarkan informasi pesantren dengan semangat pesantren modern yang terbuka dan progresif.</p>
-        </div>
-        <div class="tentang-card">
-          <h3>📊 Sekilas Pesantren</h3>
-          <p>Berdiri sejak 4 Juni 2016 (1 Ramadhan 1438 H), Almadani Cikalong terus berkembang dengan 310+ santri, program tahfidz 30 juz, dan Satuan Pendidikan Muadalah yang diakui negara.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+function bacaArtikel(id) {
+  const list = ambilArtikel();
+  const a = list.find(x => x.id === id);
+  if (!a) return;
+  document.getElementById('detailJudul').textContent = a.judul;
+  document.getElementById('detailMeta').textContent = `${a.kategori} · ${a.penulis || 'Redaksi'} · ${a.tanggal}`;
+  document.getElementById('detailIsi').textContent = a.isi;
+  // Sembunyikan semua, tampilkan detail
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('section-detail').classList.add('active');
+  // Update nav active state
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  document.querySelector('nav button').classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
 
-  <!-- ========== OPERATOR PANEL ========== -->
-  <section id="operator" class="operator-section">
-    <div class="container">
-      <div class="section-header">
-        <h2>✍️ Panel Operator</h2>
-        <p>Tambahkan artikel baru secara manual. Data tersimpan di perangkat ini (localStorage).</p>
-      </div>
-      <form id="formArtikel" class="form-artikel">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="judul">Judul Artikel *</label>
-            <input type="text" id="judul" placeholder="Contoh: Haflah Takhorruj Angkatan ke-5" required>
-          </div>
-          <div class="form-group">
-            <label for="kategori">Kategori</label>
-            <select id="kategori">
-              <option value="Berita Pesantren">Berita Pesantren</option>
-              <option value="Prestasi">Prestasi</option>
-              <option value="Gagasan">Gagasan</option>
-              <option value="Kegiatan Santri">Kegiatan Santri</option>
-              <option value="Pengumuman">Pengumuman</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="penulis">Penulis / Reporter</label>
-            <input type="text" id="penulis" placeholder="Nama penulis" value="Tim AL-MANAR">
-          </div>
-          <div class="form-group">
-            <label for="tanggal">Tanggal</label>
-            <input type="date" id="tanggal">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="ringkasan">Ringkasan (untuk kartu artikel)</label>
-          <textarea id="ringkasan" rows="2" placeholder="Ringkasan singkat artikel..."></textarea>
-        </div>
-        <div class="form-group">
-          <label for="konten">Isi Artikel Lengkap *</label>
-          <textarea id="konten" rows="6" placeholder="Tulis isi artikel di sini..." required></textarea>
-        </div>
-        <button type="submit" class="btn-primary btn-full">📤 Publikasikan Artikel</button>
-      </form>
-    </div>
-  </section>
-
-  <!-- ========== FOOTER ========== -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div>
-          <h3>AL-MANAR</h3>
-          <p>Jurnalistik Pesantren Almadani Cikalong<br>Kec. Sukahaji, Kab. Majalengka, Jawa Barat</p>
-        </div>
-        <div>
-          <h4>Navigasi</h4>
-          <ul>
-            <li><a href="#home">Beranda</a></li>
-            <li><a href="#artikel">Artikel</a></li>
-            <li><a href="#tentang">Tentang</a></li>
-            <li><a href="#operator">Operator</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4>Kontak</h4>
-          <p>📧 redaksi@almanar.almadani.sch.id<br>📍 Cikalong, Sukahaji, Majalengka</p>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 AL-MANAR — Jurnalistik Pesantren Almadani Cikalong. Dibangun dengan semangat pesantren modern.</p>
+/* ============================================================
+   RENDER KELOLA (ADMIN)
+   ============================================================ */
+function renderKelola() {
+  const list = ambilArtikel();
+  const container = document.getElementById('daftarKelola');
+  if (list.length === 0) {
+    container.innerHTML = `<div class="kosong" style="padding:24px;"><div class="ikon">📋</div>Belum ada artikel tersimpan.</div>`;
+    return;
+  }
+  const sorted = [...list].reverse();
+  container.innerHTML = sorted.map(a => `
+    <div class="artikel-card" style="padding:12px 16px;">
+      <span class="kategori">${a.kategori || 'BERITA'}</span>
+      <h3 style="font-size:0.9rem;">${escapeHtml(a.judul)}</h3>
+      <div class="meta">${a.penulis || 'Redaksi'} · ${a.tanggal || '-'}</div>
+      <div class="aksi">
+        <button onclick="editArtikel('${a.id}')">✎ EDIT</button>
+        <button class="hapus" onclick="hapusArtikel('${a.id}')">✕ HAPUS</button>
       </div>
     </div>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
-
-/* ========== RESET & VARIABEL ========== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-:root {
-  --hijau-tua: #1a3a2a;
-  --hijau: #2d5a3d;
-  --hijau-muda: #3d7a52;
-  --emas: #c9a84c;
-  --emas-muda: #e0c878;
-  --krem: #faf8f0;
-  --krem-tua: #f0ead6;
-  --putih: #ffffff;
-  --hitam: #1a1a1a;
-  --abu: #6b7280;
-  --shadow: 0 4px 20px rgba(26, 58, 42, 0.1);
-  --shadow-hover: 0 8px 30px rgba(26, 58, 42, 0.18);
-}
-
-body {
-  font-family: 'Inter', sans-serif;
-  background: var(--krem);
-  color: var(--hitam);
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-
-h1, h2, h3, h4 {
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-/* ========== NAVBAR ========== */
-.navbar {
-  background: var(--hijau-tua);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.15);
-}
-
-.nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 12px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.logo-area {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo-icon {
-  font-size: 2rem;
-  background: var(--emas);
-  width: 48px;
-  height: 48px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-}
-
-.logo-text {
-  color: var(--emas);
-  font-size: 1.5rem;
-  letter-spacing: 2px;
-  font-family: 'Amiri', serif;
-}
-
-.logo-sub {
-  color: rgba(255,255,255,0.7);
-  font-size: 0.7rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 8px;
-  align-items: center;
-}
-
-.nav-links a {
-  color: rgba(255,255,255,0.85);
-  text-decoration: none;
-  padding: 10px 18px;
-  border-radius: 8px;
-  font-weight: 500;
-  font-size: 0.9rem;
-  transition: all 0.3s;
-}
-
-.nav-links a:hover,
-.nav-links a.active {
-  background: rgba(201, 168, 76, 0.2);
-  color: var(--emas-muda);
-}
-
-.btn-operator {
-  background: var(--emas);
-  color: var(--hijau-tua) !important;
-  font-weight: 700 !important;
-}
-
-.btn-operator:hover {
-  background: var(--emas-muda) !important;
-}
-
-.hamburger {
-  display: none;
-  color: white;
-  font-size: 1.8rem;
-  cursor: pointer;
-}
-
-/* ========== HERO ========== */
-.hero {
-  background: linear-gradient(135deg, var(--hijau-tua) 0%, var(--hijau) 60%, #1f4a32 100%);
-  position: relative;
-  padding: 80px 0 60px;
-  overflow: hidden;
-}
-
-.hero-bg-pattern {
-  position: absolute;
-  inset: 0;
-  background-image: 
-    radial-gradient(circle at 20% 30%, rgba(201,168,76,0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(201,168,76,0.06) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-.hero-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-}
-
-.badge-jurnalis {
-  display: inline-block;
-  background: rgba(201, 168, 76, 0.2);
-  color: var(--emas-muda);
-  padding: 8px 18px;
-  border-radius: 50px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  margin-bottom: 20px;
-  border: 1px solid rgba(201,168,76,0.3);
-}
-
-.hero-title {
-  font-size: 3.2rem;
-  color: white;
-  margin-bottom: 20px;
-  font-weight: 800;
-}
-
-.hero-title .highlight {
-  color: var(--emas);
-}
-
-.hero-desc {
-  color: rgba(255,255,255,0.8);
-  font-size: 1.05rem;
-  margin-bottom: 30px;
-  max-width: 520px;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 14px;
-  margin-bottom: 40px;
-}
-
-.btn-primary {
-  display: inline-block;
-  background: var(--emas);
-  color: var(--hijau-tua);
-  padding: 14px 32px;
-  border-radius: 10px;
-  font-weight: 700;
-  text-decoration: none;
-  border: none;
-  cursor: pointer;
-  font-size: 0.95rem;
-  transition: all 0.3s;
-}
-
-.btn-primary:hover {
-  background: var(--emas-muda);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(201,168,76,0.4);
-}
-
-.btn-outline {
-  display: inline-block;
-  background: transparent;
-  color: var(--emas);
-  padding: 14px 32px;
-  border-radius: 10px;
-  font-weight: 600;
-  text-decoration: none;
-  border: 2px solid var(--emas);
-  transition: all 0.3s;
-}
-
-.btn-outline:hover {
-  background: var(--emas);
-  color: var(--hijau-tua);
-}
-
-.hero-stats {
-  display: flex;
-  gap: 36px;
-}
-
-.hero-stats div {
-  display: flex;
-  flex-direction: column;
-}
-
-.hero-stats strong {
-  color: var(--emas);
-  font-size: 1.8rem;
-  font-weight: 800;
-}
-
-.hero-stats span {
-  color: rgba(255,255,255,0.6);
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* ========== MASKOT ========== */
-.hero-maskot {
-  display: flex;
-  justify-content: center;
-  position: relative;
-}
-
-.maskot-wrapper {
-  position: relative;
-  animation: floatMaskot 4s ease-in-out infinite;
-}
-
-@keyframes floatMaskot {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
-}
-
-.maskot-svg {
-  width: 280px;
-  height: auto;
-  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.3));
-}
-
-.maskot-shadow {
-  width: 160px;
-  height: 20px;
-  background: rgba(0,0,0,0.2);
-  border-radius: 50%;
-  margin: -10px auto 0;
-  filter: blur(6px);
-  animation: shadowPulse 4s ease-in-out infinite;
-}
-
-@keyframes shadowPulse {
-  0%, 100% { transform: scaleX(1); opacity: 0.25; }
-  50% { transform: scaleX(0.85); opacity: 0.15; }
-}
-
-.maskot-bubble {
-  position: absolute;
-  top: -20px;
-  right: -120px;
-  background: white;
-  padding: 14px 20px;
-  border-radius: 16px;
-  max-width: 260px;
-  font-size: 0.85rem;
-  color: var(--hijau-tua);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  line-height: 1.5;
-  animation: bubbleIn 0.6s ease;
-  border-left: 4px solid var(--emas);
-}
-
-.maskot-bubble::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 30px;
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent;
-  border-top: 10px solid white;
-}
-
-@keyframes bubbleIn {
-  from { opacity: 0; transform: translateY(10px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* ========== SECTION HEADER ========== */
-.section-header {
-  text-align: center;
-  margin-bottom: 48px;
-}
-
-.section-header h2 {
-  font-size: 2rem;
-  color: var(--hijau-tua);
-  margin-bottom: 10px;
-}
-
-.section-header p {
-  color: var(--abu);
-  font-size: 1rem;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* ========== ARTIKEL ========== */
-.artikel-section {
-  padding: 80px 0;
-  background: var(--putih);
-}
-
-.artikel-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 28px;
-}
-
-.artikel-empty {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 60px 30px;
-  background: var(--krem);
-  border-radius: 20px;
-  border: 2px dashed rgba(45, 90, 61, 0.2);
-}
-
-.empty-icon {
-  font-size: 4rem;
-  margin-bottom: 16px;
-}
-
-.artikel-empty h3 {
-  color: var(--hijau-tua);
-  font-size: 1.4rem;
-  margin-bottom: 8px;
-}
-
-.artikel-empty p {
-  color: var(--abu);
-  margin-bottom: 20px;
-}
-
-/* Kartu Artikel */
-.artikel-card {
-  background: var(--putih);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  transition: all 0.3s;
-  border: 1px solid rgba(45,90,61,0.08);
-  display: flex;
-  flex-direction: column;
-  animation: cardIn 0.5s ease;
-}
-
-@keyframes cardIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.artikel-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-hover);
-}
-
-.card-header {
-  padding: 20px 24px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.card-kategori {
-  background: var(--hijau);
-  color: white;
-  padding: 4px 12px;
-  border-radius: 50px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.card-tanggal {
-  font-size: 0.75rem;
-  color: var(--abu);
-}
-
-.card-body {
-  padding: 16px 24px 24px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.card-body h3 {
-  font-size: 1.2rem;
-  color: var(--hijau-tua);
-  margin-bottom: 10px;
-  line-height: 1.35;
-}
-
-.card-ringkasan {
-  color: var(--abu);
-  font-size: 0.9rem;
-  margin-bottom: 16px;
-  flex: 1;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.card-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 14px;
-  border-top: 1px solid rgba(0,0,0,0.06);
-}
-
-.card-penulis {
-  font-size: 0.8rem;
-  color: var(--abu);
-  font-style: italic;
-}
-
-.btn-baca {
-  background: transparent;
-  color: var(--hijau);
-  border: 1.5px solid var(--hijau);
-  padding: 6px 16px;
-  border-radius: 8px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.btn-baca:hover {
-  background: var(--hijau);
-  color: white;
-}
-
-.btn-hapus {
-  background: transparent;
-  color: #c0392b;
-  border: none;
-  font-size: 1.1rem;
-  cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 6px;
-  transition: background 0.2s;
-}
-
-.btn-hapus:hover {
-  background: rgba(192, 57, 43, 0.1);
-}
-
-/* ========== TENTANG ========== */
-.tentang-section {
-  padding: 80px 0;
-  background: var(--krem);
-}
-
-.tentang-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 24px;
-}
-
-.tentang-card {
-  background: white;
-  padding: 32px 28px;
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-  border-top: 4px solid var(--emas);
-  transition: transform 0.3s;
-}
-
-.tentang-card:hover {
-  transform: translateY(-4px);
-}
-
-.tentang-card h3 {
-  color: var(--hijau-tua);
-  margin-bottom: 12px;
-  font-size: 1.15rem;
-}
-
-.tentang-card p {
-  color: var(--abu);
-  font-size: 0.92rem;
-}
-
-/* ========== OPERATOR ========== */
-.operator-section {
-  padding: 80px 0;
-  background: var(--putih);
-}
-
-.form-artikel {
-  max-width: 800px;
-  margin: 0 auto;
-  background: var(--krem);
-  padding: 36px;
-  border-radius: 20px;
-  border: 1px solid rgba(45,90,61,0.1);
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  font-weight: 600;
-  font-size: 0.85rem;
-  color: var(--hijau-tua);
-  margin-bottom: 8px;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 12px 16px;
-  border: 1.5px solid rgba(45,90,61,0.15);
-  border-radius: 10px;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.95rem;
-  background: white;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  resize: vertical;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--hijau);
-  box-shadow: 0 0 0 3px rgba(45,90,61,0.1);
-}
-
-.btn-full {
-  width: 100%;
-  padding: 16px;
-  font-size: 1rem;
-}
-
-/* ========== FOOTER ========== */
-.footer {
-  background: var(--hijau-tua);
-  color: rgba(255,255,255,0.8);
-  padding: 60px 0 0;
-}
-
-.footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 40px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-.footer h3 {
-  color: var(--emas);
-  font-size: 1.4rem;
-  margin-bottom: 12px;
-  font-family: 'Amiri', serif;
-  letter-spacing: 2px;
-}
-
-.footer h4 {
-  color: white;
-  font-size: 1rem;
-  margin-bottom: 14px;
-}
-
-.footer p {
-  font-size: 0.88rem;
-  line-height: 1.7;
-}
-
-.footer ul {
-  list-style: none;
-}
-
-.footer ul li {
-  margin-bottom: 8px;
-}
-
-.footer ul a {
-  color: rgba(255,255,255,0.7);
-  text-decoration: none;
-  font-size: 0.88rem;
-  transition: color 0.3s;
-}
-
-.footer ul a:hover {
-  color: var(--emas);
-}
-
-.footer-bottom {
-  text-align: center;
-  padding: 20px 0;
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.4);
-}
-
-/* ========== MODAL BACA ARTIKEL ========== */
-.modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 2000;
-  justify-content: center;
-  align-items: center;
-  padding: 24px;
-  backdrop-filter: blur(4px);
-}
-
-.modal-overlay.active {
-  display: flex;
-}
-
-.modal-content {
-  background: white;
-  max-width: 720px;
-  width: 100%;
-  max-height: 85vh;
-  overflow-y: auto;
-  border-radius: 20px;
-  padding: 40px;
-  position: relative;
-  animation: modalIn 0.3s ease;
-}
-
-@keyframes modalIn {
-  from { opacity: 0; transform: scale(0.95) translateY(10px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.modal-close {
-  position: absolute;
-  top: 16px;
-  right: 20px;
-  background: none;
-  border: none;
+  `).join('');
+}
+
+/* ============================================================
+   CRUD ARTIKEL
+   ============================================================ */
+function simpanArtikel() {
+  const judul = document.getElementById('inputJudul').value.trim();
+  const kategori = document.getElementById('inputKategori').value;
+  const penulis = document.getElementById('inputPenulis').value.trim();
+  const ringkasan = document.getElementById('inputRingkasan').value.trim();
+  const isi = document.getElementById('inputIsi').value.trim();
+  const editId = document.getElementById('editId').value;
+
+  if (!judul || !isi) {
+    alert('Judul dan isi artikel wajib diisi!');
+    return;
+  }
+
+  const list = ambilArtikel();
+  const sekarang = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+
+  if (editId) {
+    // Edit mode
